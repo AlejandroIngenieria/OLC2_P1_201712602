@@ -52,11 +52,23 @@ class ExpresionID(ExpresionNumerica):
         self.id = id
 
 
+class ExpresionAccesoInterface(ExpresionNumerica):
+    def __init__(self, id, prop):
+        self.id = id
+        self.prop = prop
+
+
 class ExpresionCadena:
     ''' Clase abstracta para cadenas'''
 
 
 class ExpresionDobleComilla(ExpresionCadena):
-
     def __init__(self, val):
-        self.val = val
+        cadena = val.split("\"")
+        self.val = cadena[1]
+
+
+class ExpresionInterface:
+    def __init__(self, id, props):
+        self.id = id
+        self.props = props

@@ -3,6 +3,10 @@ from simbolos import TablaSimbolos
 from funciones import *
 import gramatica as g
 
+# ---------------------------------------------------------------------------- #
+#                              VARIABLES GLOBALES                              #
+# ---------------------------------------------------------------------------- #
+errores = []
 
 class Editor(QMainWindow):
     def __init__(self):
@@ -35,7 +39,7 @@ class Editor(QMainWindow):
         self.text_edit.setStyleSheet(
             "background-color: #072541; color: #ffffff; font-family: Arial; font-size: 12pt;")
 
-        # Botones Ejecutar y Mostrar reportes
+        # Botones Ejecutar, Mostrar reportes, Limpiar editor
         ejecutar_btn = QPushButton('Ejecutar', self)
         ejecutar_btn.setGeometry(10, 440, 100, 30)
         ejecutar_btn.setStyleSheet(
@@ -47,6 +51,12 @@ class Editor(QMainWindow):
         reportes_btn.setStyleSheet(
             "background-color: #22092C; color: #ffffff;")
         reportes_btn.clicked.connect(self.mostrarReportes)
+        
+        limpiar_btn = QPushButton('Limpiar editor', self)
+        limpiar_btn.setGeometry(280, 440, 100, 30)
+        limpiar_btn.setStyleSheet(
+            "background-color: #496989; color: #ffffff;")
+        limpiar_btn.clicked.connect(self.Limpiar)
 
         # Recuadro de pestañas (Consola, Tabla de símbolos, Errores)
         tab_widget = QTabWidget(self)
@@ -60,17 +70,17 @@ class Editor(QMainWindow):
             "background-color: #000000; color: #ffffff; font-family: Arial; font-size: 12pt;")
         self.consola_tab.setFixedSize(348, 375)
 
-        tabla_simbolos_tab = QTextBrowser()
-        tab_widget.addTab(tabla_simbolos_tab, 'Tabla de Símbolos')
-        tabla_simbolos_tab.setStyleSheet(
+        self.tabla_simbolos_tab = QTextBrowser()
+        tab_widget.addTab(self.tabla_simbolos_tab, 'Tabla de Símbolos')
+        self.tabla_simbolos_tab.setStyleSheet(
             "background-color: #000000; color: #ffffff; font-family: Arial; font-size: 12pt;")
-        tabla_simbolos_tab.setFixedSize(348, 375)
+        self.tabla_simbolos_tab.setFixedSize(348, 375)
 
-        errores_tab = QTextBrowser()
-        tab_widget.addTab(errores_tab, 'Errores')
-        errores_tab.setStyleSheet(
+        self.errores_tab = QTextBrowser()
+        tab_widget.addTab(self.errores_tab, 'Errores')
+        self.errores_tab.setStyleSheet(
             "background-color: #000000; color: #ffffff; font-family: Arial; font-size: 12pt;")
-        errores_tab.setFixedSize(348, 375)
+        self.errores_tab.setFixedSize(348, 375)
 
         self.show()
 
@@ -98,16 +108,23 @@ class Editor(QMainWindow):
                 file.write(self.text_edit.toPlainText())
 
     def Ejecutar(self):
-        texto = self.text_edit.toPlainText()
-        instrucciones = g.parse(texto)
-        # instrucciones = g.parse(texto)
+        instrucciones = g.parse(self.text_edit.toPlainText())
         ts = TablaSimbolos()
         try:
+            procesar_instrucciones(instrucciones, ts, save=True)
             resultado = procesar_instrucciones(instrucciones, ts)
+            self.consola_tab.clear()
             self.consola_tab.append(resultado)
-            QMessageBox.information(self, 'Mensaje', 'Ejecucion finalizada')
-        except Exception:
-            print("Error")
+            self.tabla_simbolos_tab.clear()
+            self.tabla_simbolos_tab.append(ts.obtener_datos())
+            self.errores_tab.clear()
+            self.errores_tab.append('\n'.join(errores))
+            
+        except Exception as e:
+            print("Error: ", e)
+            
+    def Limpiar(self):
+        self.text_edit.clear()
 
     def mostrarReportes(self):
         QMessageBox.information(self, 'Mensaje', 'Reportes generados')

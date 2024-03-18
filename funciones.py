@@ -2,9 +2,11 @@ from simbolos import TablaSimbolos, Simbolos, TIPO_DATO
 from expresiones import *
 from instrucciones import *
 
+
 def procesar_imprimir(instr, ts):
     print('>> ', resolver_expresion(instr.cad, ts))
     return resolver_expresion(instr.cad, ts)
+
 
 def procesar_declaracion(instr, ts):
     id = instr.id
@@ -23,17 +25,17 @@ def procesar_if(instr, ts):
     expLog = resolver_expresion_logica(instr.expLogica, ts)
     if expLog:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
-        procesar_instrucciones(instr.instrucciones, TablaLocal)
+        return procesar_instrucciones(instr.instrucciones, TablaLocal)
 
 
 def procesar_if_else(instr, ts):
     expLog = resolver_expresion_logica(instr.expLogica, ts)
     if expLog:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
-        procesar_instrucciones(instr.instrIfVerdadero, TablaLocal)
+        return procesar_instrucciones(instr.instrIfVerdadero, TablaLocal)
     else:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
-        procesar_instrucciones(instr.instrIfFalso, TablaLocal)
+        return procesar_instrucciones(instr.instrIfFalso, TablaLocal)
 
 
 def resolver_expresion(expCad, ts):
@@ -46,7 +48,18 @@ def resolver_expresion(expCad, ts):
     elif isinstance(expCad, ExpresionDobleComilla):
         return expCad.val
     elif isinstance(expCad, ExpresionID):
-        return ts.obtener(expCad.id).valor
+        exp_id = ts.obtener(expCad.id)
+        if exp_id.valor is None:
+            return exp_id.props
+
+        return exp_id.valor
+    elif isinstance(expCad, ExpresionAccesoInterface):
+        exp_id = ts.obtener(expCad.id)
+
+        if expCad.prop in exp_id.props:
+            return exp_id.props[expCad.prop]
+
+        return None
     elif isinstance(expCad, ExpresionNumero):
         return expCad.val
     else:
@@ -69,7 +82,15 @@ def resolver_expresion_aritmetica(expNum, ts):
     elif isinstance(expNum, ExpresionNumero):
         return expNum.val
     elif isinstance(expNum, ExpresionID):
-        return ts.obtener(expNum.id).valor
+        exp_id = ts.obtener(expNum.id)
+        return exp_id.valor
+    elif isinstance(expNum, ExpresionAccesoInterface):
+        exp_id = ts.obtener(expNum.id)
+
+        if expNum.prop in exp_id.props:
+            return exp_id.props[expNum.prop]
+
+        return None
 
 
 def resolver_expresion_logica(expLog, ts):
@@ -86,16 +107,78 @@ def resolver_expresion_logica(expLog, ts):
         return exp1 != exp2
 
 
-def procesar_instrucciones(instrucciones, ts):
+def procesar_funcion(instr, ts):
+    fun_ = ts.obtener(instr.id).instrucciones
+    params_ = ts.obtener(instr.id).parametros
+    if len(fun_) > 0:
+        TablaLocal = TablaSimbolos(ts.simbolos.copy())
+        for i in range(len(instr.params)):
+            exp = resolver_expresion(instr.params[i], TablaLocal)
+            TablaLocal.agregar(Simbolos(params_[i], TIPO_DATO.ENTERO, exp))
+        procesar_instrucciones(fun_, TablaLocal)
+
+        if fun_.ret_ is not None:
+            # return resolver(exp)
+            pass
+
+
+def guardar_funcion(instr, ts):
+    funcion_id = instr.id
+
+    simbolo = Simbolos(funcion_id, TIPO_DATO.FUNCION,
+                       instr.parametros, instr.instrucciones, instr.parametros)
+    ts.agregar(simbolo)
+
+
+def guardar_interface(instr, ts):
+    interface_id = instr.id
+
+    props = instr.props
+    keys = list(props.keys())
+    values = list(props.values())
+
+    for i in range(len(keys)):
+        instr.props[keys[i]] = resolver_expresion(values[i], ts)
+
+    simbolo = Simbolos(interface_id, TIPO_DATO.FUNCION,
+                       valor=None, props=instr.props)
+    ts.agregar(simbolo)
+
+
+def procesar_instrucciones(instrucciones, ts, save=False):
     for instr in instrucciones:
-        if isinstance(instr, Imprimir):
-            return procesar_imprimir(instr, ts)
-        elif isinstance(instr, Declaracion):
-            procesar_declaracion(instr, ts)
-        elif isinstance(instr, Asignacion):
-            procesar_asignacion(instr, ts)
-        elif isinstance(instr, If):
-            procesar_if(instr, ts)
-        elif isinstance(instr, IfElse):
-            procesar_if_else(instr, ts)
-        else : print('Error: instrucción no válida')
+        if not save:
+            if isinstance(instr, Imprimir):
+                return procesar_imprimir(instr, ts)
+            elif isinstance(instr, Declaracion):
+                procesar_declaracion(instr, ts)
+            elif isinstance(instr, Asignacion):
+                procesar_asignacion(instr, ts)
+            elif isinstance(instr, If):
+                return procesar_if(instr, ts)
+            elif isinstance(instr, IfElse):
+                return procesar_if_else(instr, ts)
+            elif isinstance(instr, CallFunction):
+                procesar_funcion(instr, ts)
+            elif isinstance(instr, Function):
+                pass
+            elif isinstance(instr, ExpresionInterface):
+                pass
+            else:
+                print('Error: instrucción no válida')
+                return 'Error: instrucción no válida'
+        else:
+            '''OTRA VERIFICACION PARA LA CLASE FUNCION'''
+            '''
+                si tiene o no parametros
+                lista_instruciones
+
+                -> Primer recorrdio 
+                    -> TS va a guardar ID -> {Valor}
+            '''
+            if isinstance(instr, Function):
+                guardar_funcion(instr, ts)
+            elif isinstance(instr, ExpresionInterface):
+                guardar_interface(instr, ts)
+
+
