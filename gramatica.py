@@ -259,11 +259,12 @@ def p_operacion_logica(t):
                   | expresion OR expresion
                   | NOT expresion'''
 
-    if len(t) == 3:
-        t[0] = ExpresionNOT(t[2], OPERADORES_LOGICOS.NOT)
-    else:
-
-        t[0] = ExpresionLogica(t[1], t[3], t[2])
+    if t[1] == "!":
+        t[0] = ExpresionLogica(t[2], t[2], OPERACION_LOGICA.NOT)
+    elif t[2] == "||":
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.OR)
+    elif t[2] == "&&":
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.AND)
 
 # ---------------------------------------------------------------------------- #
 #                            EXPRESION DE AGRUPACION                           #

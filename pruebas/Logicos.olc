@@ -1,0 +1,10 @@
+/*
+OPERADORES LOGICOS
+*/
+
+//AND
+let opl1 = true && true;
+//OR
+let opl2 = false || false;
+//NOT
+let opl3 = !false;

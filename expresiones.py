@@ -17,11 +17,9 @@ class OPERACION_LOGICA(Enum):
     IGUALQUE = 4
     DIFERENTE = 5
     IGUAL = 6
-
-class OPERADORES_LOGICOS(Enum):
-    AND = 0
-    OR = 1
-    NOT = 2
+    AND = 7
+    OR = 8
+    NOT = 9
 
 
 class ExpresionNumerica:
@@ -42,11 +40,6 @@ class ExpresionLogica():
     def __init__(self, exp1, exp2, operador):
         self.exp1 = exp1
         self.exp2 = exp2
-        self.operador = operador
-        
-class ExpresionNOT():
-    def __init__(self, exp, operador):
-        self.exp1 = exp
         self.operador = operador
 
 

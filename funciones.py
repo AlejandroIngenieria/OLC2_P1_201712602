@@ -155,6 +155,19 @@ def resolver_expresion_logica(expLog, ts):
         return exp1 < exp2
     if expLog.operador == OPERACION_LOGICA.MENORIGUAL:
         return exp1 <= exp2
+    if expLog.operador == OPERACION_LOGICA.AND:
+        return exp1 == exp2
+    if expLog.operador == OPERACION_LOGICA.OR:
+        if exp1=="true":
+            return exp1 == "true"
+        if exp2=="true":
+            return exp2 == "true"
+        return 1 > 3
+    if expLog.operador == OPERACION_LOGICA.NOT:
+        if exp1 == "true":
+            return False
+        else:
+            return True
     
 def procesar_funcion(instr, ts):
     fun_ = ts.obtener(instr.id).instrucciones

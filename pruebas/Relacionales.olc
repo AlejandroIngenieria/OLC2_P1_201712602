@@ -1,0 +1,7 @@
+/*
+OPERACIONES RELACIONALES
+*/
+let rel1 = 1 < 1;
+let rel2 = 13.0 >= 13.0;
+let rel3 = "aAA" <= "bA";
+let rel4 = "a" <= "b";
