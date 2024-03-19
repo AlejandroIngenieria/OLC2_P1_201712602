@@ -13,13 +13,14 @@ class TIPO_DATO(Enum):
 
 class Simbolos():  # VALOR - NODO
 
-    def __init__(self, id, tipo, valor, instrucciones=[], parametros=[], props={}):
+    def __init__(self, id, tipo, valor, instrucciones=[], parametros=[], props={}, cte=0):
         self.id = id
         self.tipo = tipo
         self.valor = valor
         self.instrucciones = instrucciones
         self.parametros = parametros
         self.props = props
+        self.cte = cte
 
 
 class TablaSimbolos():
@@ -33,7 +34,7 @@ class TablaSimbolos():
     def obtener(self, id):
         if not id in self.simbolos:
             from interfaz import errores
-            err = 'Error variable no definida'
+            err = 'Error: variable no definida'
             errores.append(err)
         else:
             return self.simbolos[id]
@@ -56,4 +57,3 @@ class TablaSimbolos():
             simbolo = self.simbolos[clave]
             datos += f"ID: {simbolo.id}, Valor: {simbolo.valor} , Tipo: {simbolo.tipo}\n"
         return datos
-

@@ -1,3 +1,5 @@
 let skadush:number = 20;
 var kyc:boolean;
 var kk:string = "h";
+let m = 2.33;
+let bl = true;

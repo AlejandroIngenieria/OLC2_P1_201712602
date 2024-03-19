@@ -2,244 +2,7 @@ import ply.lex as Lex
 import ply.yacc as yacc
 from instrucciones import *
 from expresiones import *
-
-# ? ---------------------------------------------------------------------------- #
-# ?                                ANALISIS LEXICO                               #
-# ? ---------------------------------------------------------------------------- #
-datos = ["string", "float", "number", "boolean", "char", "null"]
-# ---------------------------------------------------------------------------- #
-#                              PALABRAS RESERVADAS                             #
-# ---------------------------------------------------------------------------- #
-reservadas = {
-    'console': 'CONSOLE',
-    'log': 'LOG',
-    'let': 'LET',
-    'number': 'NUMBER',
-    'string': 'STRING',
-    'if': 'IF',
-    'else': 'ELSE',
-    'function': 'FUNCTION',
-    'interface': 'INTERFACE',
-    'array': 'ARRAY',
-    'var': 'VAR',
-    'true': 'TRUE',
-    'false': 'FALSE',
-    'number': 'NUMBER',
-    'float': 'FLOAT',
-    'string': 'STRING',
-    'boolean': 'BOOLEAN',
-    'char': 'CHAR',
-    'null': 'NULL',
-    'const': 'CONST',
-
-}
-
-# ---------------------------------------------------------------------------- #
-#                                LISTA DE TOKENS                               #
-# ---------------------------------------------------------------------------- #
-tokens = [
-    'PARIZQ',
-    'PARDER',
-    'CORIZQ',
-    'CORDER',
-    'MAS',
-    'MENOS',
-    'POR',
-    'DIVIDIDO',
-    'MODULO',
-    'MENORQUE',
-    'MENORIGUAL',
-    'MAYORIGUAL',
-    'MAYOR',
-    'IGUALQUE',
-    'DIFERENTE',
-    'MENOSUNARIO',
-    'AND',
-    'OR',
-    'NOT',
-    'PUNTO',
-    'PUNTOCOMA',
-    'DOSPUNTOS',
-    'CADENA',
-    'ENTERO',
-    'DECIMAL',
-    'COMMENTBLOCK',
-    'ID',
-    'IGUAL',
-    'LLAVIZQ',
-    'LLAVDER',
-    'COMA',
-    'QUESTION',
-    'PARSEINT',
-    'PARSEFLOAT',
-    'TOSTRING',
-    'TOLOWERCASE',
-    'TOUPPERCASE',
-    'TYPEOF',
-] + list(reservadas.values())
-t_CONSOLE = r'console'
-t_LOG = r'log'
-t_LET = r'let'
-t_VAR = r'var'
-t_CONST = r'const'
-t_IF = r'if'
-t_NUMBER = r'number'
-t_FLOAT = r'float'
-t_STRING = r'string'
-t_BOOLEAN = r'boolean'
-t_CHAR = r'char'
-t_NULL = r'null'
-t_DOSPUNTOS = r':'
-t_IGUAL = r'='
-t_PARIZQ = r'\('
-t_PARDER = r'\)'
-t_CORIZQ = r'\['
-t_CORDER = r'\]'
-t_MAS = r'\+'
-t_MENOS = r'-'
-t_POR = r'\*'
-t_DIVIDIDO = r'/'
-t_MODULO = r'%'
-t_MENORQUE = r'<'
-t_MENORIGUAL = r'<='
-t_MAYORIGUAL = r'>='
-t_MAYOR = r'>'
-t_IGUALQUE = r'=='
-t_DIFERENTE = r'!='
-t_MENOSUNARIO = r'\-'
-t_PUNTO = r'\.'
-t_PUNTOCOMA = r';'
-t_LLAVIZQ = r'{'
-t_LLAVDER = r'}'
-t_COMA = r','
-t_AND = r'&&'
-t_OR = r'\|\|'
-t_NOT = r'!'
-t_QUESTION = r'\?'
-t_TRUE = r'true'
-t_FALSE = r'false'
-t_PARSEINT = r'parseInt'
-t_PARSEFLOAT = r'parseFloat'
-t_TOSTRING = r'toString'
-t_TOLOWERCASE = r'toLowerCase'
-t_TOUPPERCASE = r'toUpperCase'
-t_TYPEOF = r'typeof'
-
-# ---------------------------------------------------------------------------- #
-#                               IDENTIFICADORRES                               #
-# ---------------------------------------------------------------------------- #
-
-
-def t_ID(t):
-    r'[a-zA-Z][a-zA-Z0-9_]*'  # El identificador debe comenzar con una letra
-    if t.value.lower() in reservadas:  # Verificar si el identificador es una palabra reservada
-        t.type = t.value.upper()  # Asignar el tipo de palabra reservada
-    else:
-        t.type = 'ID'  # Asignar el tipo ID
-    return t
-
-# ---------------------------------------------------------------------------- #
-#                                    CADENAS                                   #
-# ---------------------------------------------------------------------------- #
-
-
-def t_CADENA(t):
-    # Patrón para manejar cadenas con secuencias de escape y saltos de línea
-    r'\"([^"\n\\]*(\\.[^"\n\\]*)*)\"'
-    try:
-        t.value = t.value[1:-1]  # Elimina las comillas al inicio y al final
-        # Reemplaza las secuencias de escape \n por saltos de línea reales
-        t.value = t.value.replace(r'\n', '\n')
-        # Reemplaza las secuencias de escape \t por tabulaciones reales
-        t.value = t.value.replace(r'\t', '\t')
-        t.value = t.value.replace(
-            r'\\', '\\')  # Reemplaza las secuencias de escape \\ por una sola \
-        t.value = str(t.value)  # Convierte a cadena si no lo es
-    except ValueError:
-        print("Error %d", t.value)
-        t.value = ''
-    return t
-
-# ---------------------------------------------------------------------------- #
-#                                NUMEROS ENTEROS                               #
-# ---------------------------------------------------------------------------- #
-
-
-def t_ENTERO(t):
-    r'\d+'
-    try:
-        t.value = int(t.value)
-    except ValueError:
-        print("Integer value too large %d", t.value)
-        t.value = 0
-    return t
-
-# ---------------------------------------------------------------------------- #
-#                               NUMEROS DECIMALES                              #
-# ---------------------------------------------------------------------------- #
-
-
-def t_DECIMAL(t):
-    r'\d+\.\d+'
-    try:
-        t.value = float(t.value)
-    except ValueError:
-        print("Float value too large %d", t.value)
-        t.value = 0
-    return t
-
-
-t_ignore = " \t"
-
-t_ignore_COMMENTLINE = r'\/\/.*'
-
-t_ignore_inverted_bar = r'\\'
-
-t_ignore_car_return = r'\r'
-
-# ---------------------------------------------------------------------------- #
-#                                  COMENTARIOS                                 #
-# ---------------------------------------------------------------------------- #
-
-
-def t_ignore_COMMENTBLOCK(t):
-    r'\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/'
-    t.lexer.lineno += t.value.count('\n')
-
-# ---------------------------------------------------------------------------- #
-#                                SALTO DE LINEA                                #
-# ---------------------------------------------------------------------------- #
-
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
-
-
-# ---------------------------------------------------------------------------- #
-#                                ERRORES LEXICOS                               #
-# ---------------------------------------------------------------------------- #
-
-
-def t_error(t):
-    from interfaz import errores
-    err = "Error Léxico: '%s'" % t.value[0]
-    errores.append(err)
-    t.lexer.skip(1)
-
-
-# ---------------------------------------------------------------------------- #
-#                           PRECEDENCIA DE OPERADORES                          #
-# ---------------------------------------------------------------------------- #
-precedence = (
-    ('left', 'MENORQUE', 'MENORIGUAL', 'MAYORIGUAL', 'MAYOR'),  # < <= >= >
-    ('left', 'IGUALQUE', 'DIFERENTE'),  # == !=
-    ('left', 'AND'),  # &&
-    ('left', 'OR'),  # ||
-    ('left', 'MAS', 'MENOS'),  # + -
-    ('left', 'POR', 'DIVIDIDO', 'MODULO'),  # * / %
-    ('right', 'MENOSUNARIO', 'NOT')  # - !
-)
+from lexico import *
 
 # ? ---------------------------------------------------------------------------- #
 # ?                              ANALISIS SINTACTICO                             #
@@ -282,9 +45,11 @@ def p_instruccion(t):
                     | declaracion_instr PUNTOCOMA
                     | asignacion_instr PUNTOCOMA
                     | constante_instr PUNTOCOMA
+
     '''
-    # | if_instr
-    # | if_else_instr
+    # | ternario_instr PUNTOCOMA
+    # | if_instr PUNTOCOMA
+    # | if_else_instr PUNTOCOMA
     # | funcion_instr
     # | call_funcion_instr
     # | interface_instr
@@ -352,9 +117,19 @@ def p_instruccion_constantes(t):
                         | CONST ID DOSPUNTOS tipo_dato IGUAL expresion
                           '''
     if len(t) == 5:
-        t[0] = Declaracion(t[2], t[4], "null")
+        t[0] = Constante(t[2], t[4], "null")
     else:
-        t[0] = Declaracion(t[2], t[6], t[4])
+        t[0] = Constante(t[2], t[6], t[4])
+
+# ---------------------------------------------------------------------------- #
+#                               OPERADOR TERNARIO                              #
+# ---------------------------------------------------------------------------- #
+
+
+def ternario(t):
+    '''ternario_instr : expresion QUESTION expresion DOSPUNTOS expresion'''
+    t[0] = IfElse(t[1], t[3], t[5])
+
 
 # ---------------------------------------------------------------------------- #
 #                                INSTRUCCION IF                                #
@@ -362,7 +137,7 @@ def p_instruccion_constantes(t):
 
 
 def p_if_instr(t):
-    'if_instr           : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
+    'if_instr           : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER'
     t[0] = If(t[3], t[6])
 
 # ---------------------------------------------------------------------------- #
@@ -371,7 +146,7 @@ def p_if_instr(t):
 
 
 def p_if_else_instr(t):
-    'if_else_instr      : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
+    'if_else_instr      : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER'
     t[0] = IfElse(t[3], t[6], t[10])
 
 # ---------------------------------------------------------------------------- #
@@ -420,16 +195,6 @@ def p_instruccion_interface_params(t):
         t[0] = t[1]
 
 # ---------------------------------------------------------------------------- #
-#                               OPERADOR TERNARIO                              #
-# ---------------------------------------------------------------------------- #
-
-
-def ternario(t):
-    '''ternario : expresion QUESTION instrucciones DOSPUNTOS instrucciones PUNTOCOMA'''
-    t[0] = IfElse(t[1], t[3], t[5])
-
-
-# ---------------------------------------------------------------------------- #
 #                               EXPRESION BINARIA                              #
 # ---------------------------------------------------------------------------- #
 
@@ -438,7 +203,9 @@ def p_expresion_binaria(t):
     '''expresion : expresion MAS expresion
                   | expresion MENOS expresion
                   | expresion POR expresion
-                  | expresion DIVIDIDO expresion'''
+                  | expresion DIVIDIDO expresion
+                  | expresion MODULO expresion
+                  '''
     if t[2] == '+':
         t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MAS)
     elif t[2] == '-':
@@ -447,6 +214,8 @@ def p_expresion_binaria(t):
         t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.POR)
     elif t[2] == '/':
         t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.DIVIDIDO)
+    elif t[2] == '%':
+        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MODULO)
 
 # ---------------------------------------------------------------------------- #
 #                               EXPRESION LOGICA                               #
@@ -458,14 +227,18 @@ def p_expresion_logica(t):
                   | expresion MENORQUE expresion
                   | expresion IGUALQUE expresion
                   | expresion DIFERENTE expresion'''
-    if t[2] == '>':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYOR_QUE)
-    elif t[2] == '<':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENOR_QUE)
-    elif t[2] == '==':
+    if t[2] == '==':
         t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.IGUAL)
     elif t[2] == '!=':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.NO_IGUAL)
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.DIFERENTE)
+    elif t[2] == '>':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYOR)
+    elif t[2] == '>=':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYORIGUAL)
+    elif t[2] == '<':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENORQUE)
+    elif t[2] == '<=':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENORIGUAL)
 
 # ---------------------------------------------------------------------------- #
 #                              OPERADORES LOGICOS                              #
@@ -476,6 +249,12 @@ def p_operacion_logica(t):
     '''expresion : expresion AND expresion
                   | expresion OR expresion
                   | NOT expresion'''
+
+    if len(t) == 3:
+        t[0] = ExpresionNOT(t[2], OPERADORES_LOGICOS.NOT)
+    else:
+
+        t[0] = ExpresionLogica(t[1], t[3], t[2])
 
 # ---------------------------------------------------------------------------- #
 #                               EXPRESION UNARIA                               #
@@ -506,12 +285,27 @@ def p_expresion_number(t):
     t[0] = ExpresionNumero(t[1])
 
 # ---------------------------------------------------------------------------- #
+#                               EXPRESION DECIMAL                              #
+# ---------------------------------------------------------------------------- #
+def p_decimal(t):
+    '''decimal : ENTERO PUNTO ENTERO'''
+    t[1] = str(t[1]) + str(t[2]) + str(t[3])
+    t[0] = t[1]
+
+def p_expresion_decimal(t):
+    '''expresion    : decimal
+                     '''
+    t[0] = ExpresionDecimal(float(t[1]))
+
+# ---------------------------------------------------------------------------- #
 #                              EXPRESION DE CADENA                             #
 # ---------------------------------------------------------------------------- #
 
 
 def p_expresion_cadenas(t):
     '''expresion : CADENA
+                | TRUE
+                | FALSE
     '''
     t[0] = ExpresionConsoleLog(t[1])
 
@@ -521,8 +315,8 @@ def p_expresion_cadena(t):
     | CADENA
     | TRUE
     | FALSE
-    | NUMBER
-    | DECIMAL
+    | decimal
+    | ENTERO
     '''
     try:
         t[1] = str(t[1]) + " " + str(t[3])
@@ -536,8 +330,8 @@ def p_expresion_cadena2(t):
     '''expresionCadena2 : CADENA
     | TRUE
     | FALSE
+    | decimal
     | ENTERO
-    | DECIMAL
     '''
     t[0] = str(t[1])
 

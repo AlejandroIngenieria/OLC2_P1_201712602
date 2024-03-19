@@ -4,24 +4,91 @@ from instrucciones import *
 
 
 def procesar_imprimir(instr, ts):
-    print('>> ', resolver_expresion(instr.cad, ts))
+    # print('>> ', resolver_expresion(instr.cad, ts))
     return resolver_expresion(instr.cad, ts)
 
 
 def procesar_declaracion(instr, ts):
+    from interfaz import errores
     id = instr.id
-    exp = resolver_expresion(instr.exp, ts)
     tipo = instr.tipo
+    exp = resolver_expresion(instr.exp, ts)
+    if exp == "true" or exp == "false":
+        tipo = "boolean"
+
     if tipo == "null":
-        tipo = type(exp)
-    simbolo = Simbolos(id, tipo, exp)
+        tipo = type(exp).__name__
+        print("tipo: ", tipo)
+        if tipo == "str":
+            tipo = "string"
+        elif tipo == "int":
+            tipo = "number"
+    else:
+        valTipo = type(exp).__name__
+        if valTipo == "str":
+            valTipo = "string"
+        elif valTipo == "int":
+            valTipo = "number"
+        if tipo != valTipo:
+            errores.append(
+                f"Error: no se puede asignar un {valTipo} a un {tipo}")
+            return
+
+    sim = ts.obtener(id)
+    if sim:
+        if sim.cte == 1:
+            errores.append("Error: no se puede cambiar una constante")
+            return
+        if sim.tipo == tipo:
+            simbolo = Simbolos(id, tipo, exp)
+        else:
+            errores.append(
+                f"Error: no se puede asignar un {tipo} a un {sim.tipo}")
+            return
+    else:
+        simbolo = Simbolos(id, tipo, exp)
     ts.agregar(simbolo)
+
 
 def procesar_asignacion(instr, ts):
     id = instr.id
     exp = resolver_expresion(instr.exp, ts)
     ts.actualizar(id, exp)
 
+def procesar_constante(instr, ts):
+    from interfaz import errores
+    id = instr.id
+    tipo = instr.tipo
+    exp = resolver_expresion(instr.exp, ts)
+    if exp == "true" or exp == "false":
+        tipo = "boolean"
+
+    if tipo == "null":
+        tipo = type(exp).__name__
+        print("tipo: ", tipo)
+        if tipo == "str":
+            tipo = "string"
+        elif tipo == "int":
+            tipo = "number"
+    else:
+        valTipo = type(exp).__name__
+        if valTipo == "str":
+            valTipo = "string"
+        elif valTipo == "int":
+            valTipo = "number"
+        if tipo != valTipo:
+            errores.append(
+                f"Error: no se puede asignar un {valTipo} a un {tipo}")
+            return
+
+    sim = ts.obtener(id)
+    if sim:
+        errores.append("Error: la variable ya existe")
+        return
+    else:
+        simbolo = Simbolos(id, tipo, exp)
+        simbolo.cte = 1
+    ts.agregar(simbolo)
 
 def procesar_if(instr, ts):
     expLog = resolver_expresion_logica(instr.expLogica, ts)
@@ -64,6 +131,8 @@ def resolver_expresion(expCad, ts):
         return None
     elif isinstance(expCad, ExpresionNumero):
         return expCad.val
+    elif isinstance(expCad, ExpresionDecimal):
+        return expCad.val
     else:
         print('Error: Expresión cadena no válida')
 
@@ -81,6 +150,9 @@ def resolver_expresion_aritmetica(expNum, ts):
             return exp1 * exp2
         if expNum.operador == OPERACION_ARITMETICA.DIVIDIDO:
             return exp1 / exp2
+        if expNum.operador == OPERACION_ARITMETICA.MODULO:
+            return exp1 % exp2
+
     elif isinstance(expNum, ExpresionNumero):
         return expNum.val
     elif isinstance(expNum, ExpresionID):
@@ -158,6 +230,8 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 procesar_declaracion(instr, ts)
             elif isinstance(instr, Asignacion):
                 procesar_asignacion(instr, ts)
+            elif isinstance(instr, Constante):
+                procesar_constante(instr, ts)
             elif isinstance(instr, If):
                 resultados.append(procesar_if(instr, ts))
                 # return procesar_if(instr, ts)
@@ -187,4 +261,3 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 guardar_funcion(instr, ts)
             elif isinstance(instr, ExpresionInterface):
                 guardar_interface(instr, ts)
-

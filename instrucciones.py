@@ -1,5 +1,6 @@
 from simbolos import TIPO_DATO
 
+
 class Instruccion:
     '''Clase abs de instrucciones'''
 
@@ -15,14 +16,15 @@ class Declaracion(Instruccion):
         self.id = id
         self.exp = exp
         self.tipo = tipo
-        
+        # print("declaracion ID: ", self.id, " Valor: ", self.exp, " Tipo: ",self.tipo)
+
 
 class Constante(Instruccion):
     def __init__(self, id, exp, tipo):
         self.id = id
         self.exp = exp
         self.tipo = tipo
-
+        print("Constante ID: ", self.id, " Valor: ",self.exp, " Tipo: ", self.tipo)
 
 
 class Asignacion(Instruccion):

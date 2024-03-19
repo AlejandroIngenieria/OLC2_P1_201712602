@@ -1,2 +1,8 @@
 console.log("hola \ saludos",1);
+console.log("buenos \n dias");
+console.log("buenas \t tardes");
 console.log("compi2");
+console.log(20);
+console.log(13.55);
+console.log(true);
+console.log(false);

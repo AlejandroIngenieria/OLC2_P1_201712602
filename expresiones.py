@@ -19,6 +19,11 @@ class OPERACION_LOGICA(Enum):
     MENOSUNARIO = 6
     IGUAL = 7
 
+class OPERADORES_LOGICOS(Enum):
+    AND = 0
+    OR = 1
+    NOT = 2
+
 
 class ExpresionNumerica:
     '''
@@ -39,6 +44,11 @@ class ExpresionLogica():
         self.exp1 = exp1
         self.exp2 = exp2
         self.operador = operador
+        
+class ExpresionNOT():
+    def __init__(self, exp, operador):
+        self.exp1 = exp
+        self.operador = operador
 
 
 class ExpresionNegativo(ExpresionNumerica):
@@ -49,6 +59,12 @@ class ExpresionNegativo(ExpresionNumerica):
 class ExpresionNumero(ExpresionNumerica):
 
     def __init__(self, val=0):
+        self.val = val
+        
+
+class ExpresionDecimal(ExpresionNumerica):
+
+    def __init__(self, val=0.0):
         self.val = val
         
 
