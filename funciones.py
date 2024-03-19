@@ -103,35 +103,6 @@ def procesar_if_else(instr, ts):
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
         return procesar_instrucciones(instr.instrIfFalso, TablaLocal)
 
-def resolver_expresion(expCad, ts):
-    if isinstance(expCad, ExpresionBinaria):
-        exp = resolver_expresion_aritmetica(expCad, ts)
-        return exp
-    elif isinstance(expCad, ExpresionLogica):
-        exp = resolver_expresion_logica(expCad, ts)
-        return exp
-    elif isinstance(expCad, ExpresionConsoleLog):
-        return expCad.val
-    elif isinstance(expCad, ExpresionID):
-        exp_id = ts.obtener(expCad.id)
-        if exp_id.valor is None:
-            return exp_id.props
-
-        return exp_id.valor
-    elif isinstance(expCad, ExpresionAccesoInterface):
-        exp_id = ts.obtener(expCad.id)
-
-        if expCad.prop in exp_id.props:
-            return exp_id.props[expCad.prop]
-
-        return None
-    elif isinstance(expCad, ExpresionNumero):
-        return expCad.val
-    elif isinstance(expCad, ExpresionDecimal):
-        return expCad.val
-    else:
-        print('Error: Expresión cadena no válida')
-
 def resolver_expresion_aritmetica(expNum, ts):
     if isinstance(expNum, ExpresionBinaria):
         exp1 = resolver_expresion_aritmetica(expNum.exp1, ts)
@@ -172,16 +143,19 @@ def resolver_expresion_aritmetica(expNum, ts):
 def resolver_expresion_logica(expLog, ts):
     exp1 = resolver_expresion_aritmetica(expLog.exp1, ts)
     exp2 = resolver_expresion_aritmetica(expLog.exp2, ts)
-
-    if expLog.operador == OPERACION_LOGICA.MAYOR_QUE:
-        return exp1 > exp2
-    if expLog.operador == OPERACION_LOGICA.MENOR_QUE:
-        return exp1 < exp2
-    if expLog.operador == OPERACION_LOGICA.IGUAL:
+    if expLog.operador == OPERACION_LOGICA.IGUALQUE:
         return exp1 == exp2
-    if expLog.operador == OPERACION_LOGICA.NO_IGUAL:
+    if expLog.operador == OPERACION_LOGICA.DIFERENTE:
         return exp1 != exp2
-
+    if expLog.operador == OPERACION_LOGICA.MAYOR:
+        return exp1 > exp2
+    if expLog.operador == OPERACION_LOGICA.MAYORIGUAL:
+        return exp1 >= exp2
+    if expLog.operador == OPERACION_LOGICA.MENORQUE:
+        return exp1 < exp2
+    if expLog.operador == OPERACION_LOGICA.MENORIGUAL:
+        return exp1 <= exp2
+    
 def procesar_funcion(instr, ts):
     fun_ = ts.obtener(instr.id).instrucciones
     params_ = ts.obtener(instr.id).parametros
@@ -216,6 +190,39 @@ def guardar_interface(instr, ts):
     simbolo = Simbolos(interface_id, TIPO_DATO.FUNCION,
                        valor=None, props=instr.props)
     ts.agregar(simbolo)
+
+
+def resolver_expresion(expCad, ts):
+    if isinstance(expCad, ExpresionBinaria):
+        exp = resolver_expresion_aritmetica(expCad, ts)
+        return exp
+    elif isinstance(expCad, ExpresionLogica):
+        exp = resolver_expresion_logica(expCad, ts)
+        return exp
+    elif isinstance(expCad, ExpresionConsoleLog):
+        return expCad.val
+    elif isinstance(expCad, ExpresionID):
+        exp_id = ts.obtener(expCad.id)
+        if exp_id.valor is None:
+            return exp_id.props
+
+        return exp_id.valor
+    elif isinstance(expCad, ExpresionAccesoInterface):
+        exp_id = ts.obtener(expCad.id)
+
+        if expCad.prop in exp_id.props:
+            return exp_id.props[expCad.prop]
+
+        return None
+    elif isinstance(expCad, ExpresionNumero):
+        return expCad.val
+    elif isinstance(expCad, ExpresionDecimal):
+        return expCad.val
+    elif isinstance(expCad, ExpresionNegativo):
+        return -expCad.val.val
+    else:
+        print('Error: Expresión cadena no válida')
+
 
 def procesar_instrucciones(instrucciones, ts, save=False):
     from interfaz import resultados, errores

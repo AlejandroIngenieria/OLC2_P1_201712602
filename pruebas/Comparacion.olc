@@ -1,0 +1,42 @@
+/*
+OPERACIONES DE COMPARACION 
+*/
+
+//NUMBER
+/*
+let comp1 = 1 == 1;
+let comp2 = 1 == 2;
+let comp3 = 1 != 1;
+let comp4 = 1 != 2;
+*/
+
+//FLOATS
+/*
+let comp5 = 1.22 == 1.22;
+let comp6 = 1.22 == 2.05;
+let comp7 = 1.22 != 1.22;
+let comp8 = 1.22 != 2.05;
+*/
+//BOOLEANS
+/*
+let comp9 = true == true;
+let comp10 = true == false;
+let comp11 = true != true;
+let comp12 = true != false;
+*/
+
+//STRINGS
+/*
+let comp13 = "ho" == "ho";
+let comp14 = "ho" == "ha";
+let comp15 = "ho" != "ho";
+let comp16 = "ho" != "ha";
+*/
+
+//CHAR
+/*
+let comp17 = "h" == "h";
+let comp18 = "h" == "a";
+let comp19 = "h" != "h";
+let comp20 = "h" != "a";
+*/

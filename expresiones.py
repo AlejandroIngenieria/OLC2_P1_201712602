@@ -16,8 +16,7 @@ class OPERACION_LOGICA(Enum):
     MAYOR = 3
     IGUALQUE = 4
     DIFERENTE = 5
-    MENOSUNARIO = 6
-    IGUAL = 7
+    IGUAL = 6
 
 class OPERADORES_LOGICOS(Enum):
     AND = 0
@@ -52,8 +51,8 @@ class ExpresionNOT():
 
 
 class ExpresionNegativo(ExpresionNumerica):
-    def __init__(self, exp):
-        self.exp = exp
+    def __init__(self, val=0):
+        self.val = val
 
 
 class ExpresionNumero(ExpresionNumerica):

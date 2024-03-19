@@ -129,6 +129,7 @@ def p_instruccion_constantes(t):
 
 def p_expresion_binaria(t):
     '''expresion : expresion MAS expresion
+                  | MENOS expresion
                   | expresion MENOS expresion
                   | expresion POR expresion
                   | expresion DIVIDIDO expresion
@@ -136,6 +137,8 @@ def p_expresion_binaria(t):
                   '''
     if t[2] == '+':
         t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MAS)
+    elif t[1] == '-':
+        t[0] = ExpresionNegativo(t[2])
     elif t[2] == '-':
         t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MENOS)
     elif t[2] == '*':
@@ -226,12 +229,15 @@ def p_instruccion_interface_params(t):
 
 
 def p_expresion_logica(t):
-    '''expresion : expresion MAYOR expresion
+    '''expresion :  expresion IGUALQUE expresion
+                  | expresion DIFERENTE expresion
+                  | expresion MAYOR expresion
+                  | expresion MAYORIGUAL expresion
                   | expresion MENORQUE expresion
-                  | expresion IGUALQUE expresion
-                  | expresion DIFERENTE expresion'''
+                  | expresion MENORIGUAL expresion
+                  '''
     if t[2] == '==':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.IGUAL)
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.IGUALQUE)
     elif t[2] == '!=':
         t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.DIFERENTE)
     elif t[2] == '>':
@@ -258,15 +264,6 @@ def p_operacion_logica(t):
     else:
 
         t[0] = ExpresionLogica(t[1], t[3], t[2])
-
-# ---------------------------------------------------------------------------- #
-#                               EXPRESION UNARIA                               #
-# ---------------------------------------------------------------------------- #
-
-
-# def p_expresion_unaria(t):
-#     'expresion : MENOSUNARIO expresion %prec MENOSUNARIO'
-#     t[0] = ExpresionNegativo(t[2])
 
 # ---------------------------------------------------------------------------- #
 #                            EXPRESION DE AGRUPACION                           #
