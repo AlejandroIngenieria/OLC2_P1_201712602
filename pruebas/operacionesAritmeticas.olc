@@ -1,0 +1,30 @@
+/*
+let suma1 = 20+30;
+let suma2 = 15+2.33;
+var suma3 = 1.5+3.33;
+var suma4 = 2.33+15;
+let suma5 = "hola" + " amigos";
+*/
+
+/*
+let resta1 = 30-20;
+let resta2 = 15-2.33;
+var resta3 = 10.5-3.33;
+var resta4 = 2.33-1.3;
+*/
+
+/*
+let mul1 = 30*20;
+let mul2 = 30*1.5;
+let mul3 = 4.5*1.5;
+let mul4 = 2*0.5;
+*/
+
+/*
+let div1 = 30/20;
+let div2 = 30/1.5;
+let div3 = 4.5/1.5;
+let div4 = 2/0.5;
+*/
+
+//let modulo = 10%3;

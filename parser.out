@@ -8,7 +8,6 @@ Unused terminals:
     CORIZQ
     MAYORIGUAL
     MENORIGUAL
-    MENOSUNARIO
     NULL
     QUESTION
 
@@ -37,18 +36,18 @@ Rule 19    declaracion_instr -> VAR ID DOSPUNTOS tipo_dato IGUAL expresion
 Rule 20    asignacion_instr -> ID IGUAL expresion
 Rule 21    constante_instr -> CONST ID IGUAL expresion
 Rule 22    constante_instr -> CONST ID DOSPUNTOS tipo_dato IGUAL expresion
-Rule 23    if_instr -> IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER
-Rule 24    if_else_instr -> IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER
-Rule 25    funcion_instr -> FUNCTION ID PARIZQ ID COMA ID PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA
-Rule 26    call_funcion_instr -> ID PARIZQ expresion COMA expresion PARDER PUNTOCOMA
-Rule 27    interface_instr -> INTERFACE ID LLAVIZQ interface_params PUNTOCOMA LLAVDER
-Rule 28    interface_params -> interface_params PUNTOCOMA ID DOSPUNTOS expresion
-Rule 29    interface_params -> ID DOSPUNTOS expresion
-Rule 30    expresion -> expresion MAS expresion
-Rule 31    expresion -> expresion MENOS expresion
-Rule 32    expresion -> expresion POR expresion
-Rule 33    expresion -> expresion DIVIDIDO expresion
-Rule 34    expresion -> expresion MODULO expresion
+Rule 23    expresion -> expresion MAS expresion
+Rule 24    expresion -> expresion MENOS expresion
+Rule 25    expresion -> expresion POR expresion
+Rule 26    expresion -> expresion DIVIDIDO expresion
+Rule 27    expresion -> expresion MODULO expresion
+Rule 28    if_instr -> IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER
+Rule 29    if_else_instr -> IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER
+Rule 30    funcion_instr -> FUNCTION ID PARIZQ ID COMA ID PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA
+Rule 31    call_funcion_instr -> ID PARIZQ expresion COMA expresion PARDER PUNTOCOMA
+Rule 32    interface_instr -> INTERFACE ID LLAVIZQ interface_params PUNTOCOMA LLAVDER
+Rule 33    interface_params -> interface_params PUNTOCOMA ID DOSPUNTOS expresion
+Rule 34    interface_params -> ID DOSPUNTOS expresion
 Rule 35    expresion -> expresion MAYOR expresion
 Rule 36    expresion -> expresion MENORQUE expresion
 Rule 37    expresion -> expresion IGUALQUE expresion
@@ -56,91 +55,89 @@ Rule 38    expresion -> expresion DIFERENTE expresion
 Rule 39    expresion -> expresion AND expresion
 Rule 40    expresion -> expresion OR expresion
 Rule 41    expresion -> NOT expresion
-Rule 42    expresion -> MENOS expresion
-Rule 43    expresion -> PARIZQ expresion PARDER
-Rule 44    expresion -> ENTERO
-Rule 45    decimal -> ENTERO PUNTO ENTERO
-Rule 46    expresion -> decimal
-Rule 47    expresion -> CADENA
-Rule 48    expresion -> TRUE
-Rule 49    expresion -> FALSE
-Rule 50    expresionCadena -> CADENA COMA expresionCadena2
-Rule 51    expresionCadena -> CADENA
-Rule 52    expresionCadena -> TRUE
-Rule 53    expresionCadena -> FALSE
-Rule 54    expresionCadena -> decimal
-Rule 55    expresionCadena -> ENTERO
-Rule 56    expresionCadena2 -> CADENA
-Rule 57    expresionCadena2 -> TRUE
-Rule 58    expresionCadena2 -> FALSE
-Rule 59    expresionCadena2 -> decimal
-Rule 60    expresionCadena2 -> ENTERO
-Rule 61    parseInt -> PARSEINT PARIZQ expresionCadena PARDER PUNTOCOMA
-Rule 62    parseFloat -> PARSEFLOAT PARIZQ expresionCadena PARDER PUNTOCOMA
-Rule 63    toString -> ID PUNTO TOSTRING PARIZQ PARDER
-Rule 64    toLowerCase -> ID PUNTO TOLOWERCASE PARIZQ PARDER
-Rule 65    toUpperCase -> ID PUNTO TOUPPERCASE PARIZQ PARDER
-Rule 66    typeof -> TYPEOF expresion
-Rule 67    typeof -> TYPEOF ID
-Rule 68    expresion -> ID
-Rule 69    expresion -> ID PUNTO ID
+Rule 42    expresion -> PARIZQ expresion PARDER
+Rule 43    expresion -> ENTERO
+Rule 44    decimal -> ENTERO PUNTO ENTERO
+Rule 45    expresion -> decimal
+Rule 46    expresion -> CADENA
+Rule 47    expresion -> TRUE
+Rule 48    expresion -> FALSE
+Rule 49    expresionCadena -> CADENA COMA expresionCadena2
+Rule 50    expresionCadena -> CADENA
+Rule 51    expresionCadena -> TRUE
+Rule 52    expresionCadena -> FALSE
+Rule 53    expresionCadena -> decimal
+Rule 54    expresionCadena -> ENTERO
+Rule 55    expresionCadena2 -> CADENA
+Rule 56    expresionCadena2 -> TRUE
+Rule 57    expresionCadena2 -> FALSE
+Rule 58    expresionCadena2 -> decimal
+Rule 59    expresionCadena2 -> ENTERO
+Rule 60    parseInt -> PARSEINT PARIZQ expresionCadena PARDER PUNTOCOMA
+Rule 61    parseFloat -> PARSEFLOAT PARIZQ expresionCadena PARDER PUNTOCOMA
+Rule 62    toString -> ID PUNTO TOSTRING PARIZQ PARDER
+Rule 63    toLowerCase -> ID PUNTO TOLOWERCASE PARIZQ PARDER
+Rule 64    toUpperCase -> ID PUNTO TOUPPERCASE PARIZQ PARDER
+Rule 65    typeof -> TYPEOF expresion
+Rule 66    typeof -> TYPEOF ID
+Rule 67    expresion -> ID
+Rule 68    expresion -> ID PUNTO ID
 
 Terminals, with rules where they appear
 
 AND                  : 39
 ARRAY                : 
 BOOLEAN              : 12
-CADENA               : 47 50 51 56
+CADENA               : 46 49 50 55
 CHAR                 : 13
-COMA                 : 25 26 50
+COMA                 : 30 31 49
 COMMENTBLOCK         : 
 CONSOLE              : 8
 CONST                : 21 22
 CORDER               : 
 CORIZQ               : 
 DIFERENTE            : 38
-DIVIDIDO             : 33
-DOSPUNTOS            : 16 17 18 19 22 28 29
-ELSE                 : 24
-ENTERO               : 44 45 45 55 60
-FALSE                : 49 53 58
+DIVIDIDO             : 26
+DOSPUNTOS            : 16 17 18 19 22 33 34
+ELSE                 : 29
+ENTERO               : 43 44 44 54 59
+FALSE                : 48 52 57
 FLOAT                : 11
-FUNCTION             : 25
-ID                   : 14 15 16 17 18 19 20 21 22 25 25 25 26 27 28 29 63 64 65 67 68 69 69
-IF                   : 23 24
+FUNCTION             : 30
+ID                   : 14 15 16 17 18 19 20 21 22 30 30 30 31 32 33 34 62 63 64 66 67 68 68
+IF                   : 28 29
 IGUAL                : 14 15 18 19 20 21 22
 IGUALQUE             : 37
-INTERFACE            : 27
+INTERFACE            : 32
 LET                  : 14 16 18
-LLAVDER              : 23 24 24 25 27
-LLAVIZQ              : 23 24 24 25 27
+LLAVDER              : 28 29 29 30 32
+LLAVIZQ              : 28 29 29 30 32
 LOG                  : 8
-MAS                  : 30
+MAS                  : 23
 MAYOR                : 35
 MAYORIGUAL           : 
 MENORIGUAL           : 
 MENORQUE             : 36
-MENOS                : 31 42
-MENOSUNARIO          : 
-MODULO               : 34
+MENOS                : 24
+MODULO               : 27
 NOT                  : 41
 NULL                 : 
 NUMBER               : 10
 OR                   : 40
-PARDER               : 8 23 24 25 26 43 61 62 63 64 65
-PARIZQ               : 8 23 24 25 26 43 61 62 63 64 65
-PARSEFLOAT           : 62
-PARSEINT             : 61
-POR                  : 32
-PUNTO                : 8 45 63 64 65 69
-PUNTOCOMA            : 4 5 6 7 25 26 27 28 61 62
+PARDER               : 8 28 29 30 31 42 60 61 62 63 64
+PARIZQ               : 8 28 29 30 31 42 60 61 62 63 64
+PARSEFLOAT           : 61
+PARSEINT             : 60
+POR                  : 25
+PUNTO                : 8 44 62 63 64 68
+PUNTOCOMA            : 4 5 6 7 30 31 32 33 60 61
 QUESTION             : 
 STRING               : 9
-TOLOWERCASE          : 64
-TOSTRING             : 63
-TOUPPERCASE          : 65
-TRUE                 : 48 52 57
-TYPEOF               : 66 67
+TOLOWERCASE          : 63
+TOSTRING             : 62
+TOUPPERCASE          : 64
+TRUE                 : 47 51 56
+TYPEOF               : 65 66
 VAR                  : 15 17 19
 error                : 
 
@@ -149,20 +146,20 @@ Nonterminals, with rules where they appear
 asignacion_instr     : 6
 call_funcion_instr   : 
 constante_instr      : 7
-decimal              : 46 54 59
+decimal              : 45 53 58
 declaracion_instr    : 5
-expresion            : 14 15 18 19 20 21 22 23 24 26 26 28 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 42 43 66
-expresionCadena      : 8 61 62
-expresionCadena2     : 50
+expresion            : 14 15 18 19 20 21 22 23 23 24 24 25 25 26 26 27 27 28 29 31 31 33 34 35 35 36 36 37 37 38 38 39 39 40 40 41 42 65
+expresionCadena      : 8 60 61
+expresionCadena2     : 49
 funcion_instr        : 
 if_else_instr        : 
 if_instr             : 
 imprimir_instr       : 4
 init                 : 0
 instruccion          : 2 3
-instrucciones        : 1 2 23 24 24 25
+instrucciones        : 1 2 28 29 29 30
 interface_instr      : 
-interface_params     : 27 28
+interface_params     : 32 33
 parseFloat           : 
 parseInt             : 
 tipo_dato            : 16 17 18 19 22
@@ -406,11 +403,11 @@ state 19
 state 20
 
     (20) asignacion_instr -> ID IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -418,28 +415,26 @@ state 20
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
     expresion                      shift and go to state 27
-    decimal                        shift and go to state 32
+    decimal                        shift and go to state 31
 
 state 21
 
@@ -447,8 +442,8 @@ state 21
     (17) declaracion_instr -> VAR ID . DOSPUNTOS tipo_dato
     (19) declaracion_instr -> VAR ID . DOSPUNTOS tipo_dato IGUAL expresion
 
-    IGUAL           shift and go to state 36
-    DOSPUNTOS       shift and go to state 37
+    IGUAL           shift and go to state 35
+    DOSPUNTOS       shift and go to state 36
 
 
 state 22
@@ -456,25 +451,25 @@ state 22
     (21) constante_instr -> CONST ID . IGUAL expresion
     (22) constante_instr -> CONST ID . DOSPUNTOS tipo_dato IGUAL expresion
 
-    IGUAL           shift and go to state 38
-    DOSPUNTOS       shift and go to state 39
+    IGUAL           shift and go to state 37
+    DOSPUNTOS       shift and go to state 38
 
 
 state 23
 
     (8) imprimir_instr -> CONSOLE PUNTO LOG . PARIZQ expresionCadena PARDER
 
-    PARIZQ          shift and go to state 40
+    PARIZQ          shift and go to state 39
 
 
 state 24
 
     (14) declaracion_instr -> LET ID IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -482,28 +477,26 @@ state 24
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 41
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 40
+    decimal                        shift and go to state 31
 
 state 25
 
@@ -515,43 +508,43 @@ state 25
     (12) tipo_dato -> . BOOLEAN
     (13) tipo_dato -> . CHAR
 
-    STRING          shift and go to state 43
-    NUMBER          shift and go to state 44
-    FLOAT           shift and go to state 45
-    BOOLEAN         shift and go to state 46
-    CHAR            shift and go to state 47
+    STRING          shift and go to state 42
+    NUMBER          shift and go to state 43
+    FLOAT           shift and go to state 44
+    BOOLEAN         shift and go to state 45
+    CHAR            shift and go to state 46
 
-    tipo_dato                      shift and go to state 42
+    tipo_dato                      shift and go to state 41
 
 state 26
 
-    (68) expresion -> ID .
-    (69) expresion -> ID . PUNTO ID
+    (67) expresion -> ID .
+    (68) expresion -> ID . PUNTO ID
 
-    MAS             reduce using rule 68 (expresion -> ID .)
-    MENOS           reduce using rule 68 (expresion -> ID .)
-    POR             reduce using rule 68 (expresion -> ID .)
-    DIVIDIDO        reduce using rule 68 (expresion -> ID .)
-    MODULO          reduce using rule 68 (expresion -> ID .)
-    MAYOR           reduce using rule 68 (expresion -> ID .)
-    MENORQUE        reduce using rule 68 (expresion -> ID .)
-    IGUALQUE        reduce using rule 68 (expresion -> ID .)
-    DIFERENTE       reduce using rule 68 (expresion -> ID .)
-    AND             reduce using rule 68 (expresion -> ID .)
-    OR              reduce using rule 68 (expresion -> ID .)
-    PUNTOCOMA       reduce using rule 68 (expresion -> ID .)
-    PARDER          reduce using rule 68 (expresion -> ID .)
-    PUNTO           shift and go to state 48
+    MAS             reduce using rule 67 (expresion -> ID .)
+    MENOS           reduce using rule 67 (expresion -> ID .)
+    POR             reduce using rule 67 (expresion -> ID .)
+    DIVIDIDO        reduce using rule 67 (expresion -> ID .)
+    MODULO          reduce using rule 67 (expresion -> ID .)
+    MAYOR           reduce using rule 67 (expresion -> ID .)
+    MENORQUE        reduce using rule 67 (expresion -> ID .)
+    IGUALQUE        reduce using rule 67 (expresion -> ID .)
+    DIFERENTE       reduce using rule 67 (expresion -> ID .)
+    AND             reduce using rule 67 (expresion -> ID .)
+    OR              reduce using rule 67 (expresion -> ID .)
+    PUNTOCOMA       reduce using rule 67 (expresion -> ID .)
+    PARDER          reduce using rule 67 (expresion -> ID .)
+    PUNTO           shift and go to state 47
 
 
 state 27
 
     (20) asignacion_instr -> ID IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -560,27 +553,27 @@ state 27
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 20 (asignacion_instr -> ID IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
 
 state 28
 
-    (42) expresion -> MENOS . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (41) expresion -> NOT . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -588,37 +581,35 @@ state 28
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 60
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 59
+    decimal                        shift and go to state 31
 
 state 29
 
-    (41) expresion -> NOT . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (42) expresion -> PARIZQ . expresion PARDER
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -626,172 +617,132 @@ state 29
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 61
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 60
+    decimal                        shift and go to state 31
 
 state 30
 
-    (43) expresion -> PARIZQ . expresion PARDER
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
-    (35) expresion -> . expresion MAYOR expresion
-    (36) expresion -> . expresion MENORQUE expresion
-    (37) expresion -> . expresion IGUALQUE expresion
-    (38) expresion -> . expresion DIFERENTE expresion
-    (39) expresion -> . expresion AND expresion
-    (40) expresion -> . expresion OR expresion
-    (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (43) expresion -> ENTERO .
+    (44) decimal -> ENTERO . PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
-    ID              shift and go to state 26
+    MAS             reduce using rule 43 (expresion -> ENTERO .)
+    MENOS           reduce using rule 43 (expresion -> ENTERO .)
+    POR             reduce using rule 43 (expresion -> ENTERO .)
+    DIVIDIDO        reduce using rule 43 (expresion -> ENTERO .)
+    MODULO          reduce using rule 43 (expresion -> ENTERO .)
+    MAYOR           reduce using rule 43 (expresion -> ENTERO .)
+    MENORQUE        reduce using rule 43 (expresion -> ENTERO .)
+    IGUALQUE        reduce using rule 43 (expresion -> ENTERO .)
+    DIFERENTE       reduce using rule 43 (expresion -> ENTERO .)
+    AND             reduce using rule 43 (expresion -> ENTERO .)
+    OR              reduce using rule 43 (expresion -> ENTERO .)
+    PUNTOCOMA       reduce using rule 43 (expresion -> ENTERO .)
+    PARDER          reduce using rule 43 (expresion -> ENTERO .)
+    PUNTO           shift and go to state 61
 
-    expresion                      shift and go to state 62
-    decimal                        shift and go to state 32
 
 state 31
 
-    (44) expresion -> ENTERO .
-    (45) decimal -> ENTERO . PUNTO ENTERO
+    (45) expresion -> decimal .
 
-    MAS             reduce using rule 44 (expresion -> ENTERO .)
-    MENOS           reduce using rule 44 (expresion -> ENTERO .)
-    POR             reduce using rule 44 (expresion -> ENTERO .)
-    DIVIDIDO        reduce using rule 44 (expresion -> ENTERO .)
-    MODULO          reduce using rule 44 (expresion -> ENTERO .)
-    MAYOR           reduce using rule 44 (expresion -> ENTERO .)
-    MENORQUE        reduce using rule 44 (expresion -> ENTERO .)
-    IGUALQUE        reduce using rule 44 (expresion -> ENTERO .)
-    DIFERENTE       reduce using rule 44 (expresion -> ENTERO .)
-    AND             reduce using rule 44 (expresion -> ENTERO .)
-    OR              reduce using rule 44 (expresion -> ENTERO .)
-    PUNTOCOMA       reduce using rule 44 (expresion -> ENTERO .)
-    PARDER          reduce using rule 44 (expresion -> ENTERO .)
-    PUNTO           shift and go to state 63
+    MAS             reduce using rule 45 (expresion -> decimal .)
+    MENOS           reduce using rule 45 (expresion -> decimal .)
+    POR             reduce using rule 45 (expresion -> decimal .)
+    DIVIDIDO        reduce using rule 45 (expresion -> decimal .)
+    MODULO          reduce using rule 45 (expresion -> decimal .)
+    MAYOR           reduce using rule 45 (expresion -> decimal .)
+    MENORQUE        reduce using rule 45 (expresion -> decimal .)
+    IGUALQUE        reduce using rule 45 (expresion -> decimal .)
+    DIFERENTE       reduce using rule 45 (expresion -> decimal .)
+    AND             reduce using rule 45 (expresion -> decimal .)
+    OR              reduce using rule 45 (expresion -> decimal .)
+    PUNTOCOMA       reduce using rule 45 (expresion -> decimal .)
+    PARDER          reduce using rule 45 (expresion -> decimal .)
 
 
 state 32
 
-    (46) expresion -> decimal .
+    (46) expresion -> CADENA .
 
-    MAS             reduce using rule 46 (expresion -> decimal .)
-    MENOS           reduce using rule 46 (expresion -> decimal .)
-    POR             reduce using rule 46 (expresion -> decimal .)
-    DIVIDIDO        reduce using rule 46 (expresion -> decimal .)
-    MODULO          reduce using rule 46 (expresion -> decimal .)
-    MAYOR           reduce using rule 46 (expresion -> decimal .)
-    MENORQUE        reduce using rule 46 (expresion -> decimal .)
-    IGUALQUE        reduce using rule 46 (expresion -> decimal .)
-    DIFERENTE       reduce using rule 46 (expresion -> decimal .)
-    AND             reduce using rule 46 (expresion -> decimal .)
-    OR              reduce using rule 46 (expresion -> decimal .)
-    PUNTOCOMA       reduce using rule 46 (expresion -> decimal .)
-    PARDER          reduce using rule 46 (expresion -> decimal .)
+    MAS             reduce using rule 46 (expresion -> CADENA .)
+    MENOS           reduce using rule 46 (expresion -> CADENA .)
+    POR             reduce using rule 46 (expresion -> CADENA .)
+    DIVIDIDO        reduce using rule 46 (expresion -> CADENA .)
+    MODULO          reduce using rule 46 (expresion -> CADENA .)
+    MAYOR           reduce using rule 46 (expresion -> CADENA .)
+    MENORQUE        reduce using rule 46 (expresion -> CADENA .)
+    IGUALQUE        reduce using rule 46 (expresion -> CADENA .)
+    DIFERENTE       reduce using rule 46 (expresion -> CADENA .)
+    AND             reduce using rule 46 (expresion -> CADENA .)
+    OR              reduce using rule 46 (expresion -> CADENA .)
+    PUNTOCOMA       reduce using rule 46 (expresion -> CADENA .)
+    PARDER          reduce using rule 46 (expresion -> CADENA .)
 
 
 state 33
 
-    (47) expresion -> CADENA .
+    (47) expresion -> TRUE .
 
-    MAS             reduce using rule 47 (expresion -> CADENA .)
-    MENOS           reduce using rule 47 (expresion -> CADENA .)
-    POR             reduce using rule 47 (expresion -> CADENA .)
-    DIVIDIDO        reduce using rule 47 (expresion -> CADENA .)
-    MODULO          reduce using rule 47 (expresion -> CADENA .)
-    MAYOR           reduce using rule 47 (expresion -> CADENA .)
-    MENORQUE        reduce using rule 47 (expresion -> CADENA .)
-    IGUALQUE        reduce using rule 47 (expresion -> CADENA .)
-    DIFERENTE       reduce using rule 47 (expresion -> CADENA .)
-    AND             reduce using rule 47 (expresion -> CADENA .)
-    OR              reduce using rule 47 (expresion -> CADENA .)
-    PUNTOCOMA       reduce using rule 47 (expresion -> CADENA .)
-    PARDER          reduce using rule 47 (expresion -> CADENA .)
+    MAS             reduce using rule 47 (expresion -> TRUE .)
+    MENOS           reduce using rule 47 (expresion -> TRUE .)
+    POR             reduce using rule 47 (expresion -> TRUE .)
+    DIVIDIDO        reduce using rule 47 (expresion -> TRUE .)
+    MODULO          reduce using rule 47 (expresion -> TRUE .)
+    MAYOR           reduce using rule 47 (expresion -> TRUE .)
+    MENORQUE        reduce using rule 47 (expresion -> TRUE .)
+    IGUALQUE        reduce using rule 47 (expresion -> TRUE .)
+    DIFERENTE       reduce using rule 47 (expresion -> TRUE .)
+    AND             reduce using rule 47 (expresion -> TRUE .)
+    OR              reduce using rule 47 (expresion -> TRUE .)
+    PUNTOCOMA       reduce using rule 47 (expresion -> TRUE .)
+    PARDER          reduce using rule 47 (expresion -> TRUE .)
 
 
 state 34
 
-    (48) expresion -> TRUE .
+    (48) expresion -> FALSE .
 
-    MAS             reduce using rule 48 (expresion -> TRUE .)
-    MENOS           reduce using rule 48 (expresion -> TRUE .)
-    POR             reduce using rule 48 (expresion -> TRUE .)
-    DIVIDIDO        reduce using rule 48 (expresion -> TRUE .)
-    MODULO          reduce using rule 48 (expresion -> TRUE .)
-    MAYOR           reduce using rule 48 (expresion -> TRUE .)
-    MENORQUE        reduce using rule 48 (expresion -> TRUE .)
-    IGUALQUE        reduce using rule 48 (expresion -> TRUE .)
-    DIFERENTE       reduce using rule 48 (expresion -> TRUE .)
-    AND             reduce using rule 48 (expresion -> TRUE .)
-    OR              reduce using rule 48 (expresion -> TRUE .)
-    PUNTOCOMA       reduce using rule 48 (expresion -> TRUE .)
-    PARDER          reduce using rule 48 (expresion -> TRUE .)
+    MAS             reduce using rule 48 (expresion -> FALSE .)
+    MENOS           reduce using rule 48 (expresion -> FALSE .)
+    POR             reduce using rule 48 (expresion -> FALSE .)
+    DIVIDIDO        reduce using rule 48 (expresion -> FALSE .)
+    MODULO          reduce using rule 48 (expresion -> FALSE .)
+    MAYOR           reduce using rule 48 (expresion -> FALSE .)
+    MENORQUE        reduce using rule 48 (expresion -> FALSE .)
+    IGUALQUE        reduce using rule 48 (expresion -> FALSE .)
+    DIFERENTE       reduce using rule 48 (expresion -> FALSE .)
+    AND             reduce using rule 48 (expresion -> FALSE .)
+    OR              reduce using rule 48 (expresion -> FALSE .)
+    PUNTOCOMA       reduce using rule 48 (expresion -> FALSE .)
+    PARDER          reduce using rule 48 (expresion -> FALSE .)
 
 
 state 35
 
-    (49) expresion -> FALSE .
-
-    MAS             reduce using rule 49 (expresion -> FALSE .)
-    MENOS           reduce using rule 49 (expresion -> FALSE .)
-    POR             reduce using rule 49 (expresion -> FALSE .)
-    DIVIDIDO        reduce using rule 49 (expresion -> FALSE .)
-    MODULO          reduce using rule 49 (expresion -> FALSE .)
-    MAYOR           reduce using rule 49 (expresion -> FALSE .)
-    MENORQUE        reduce using rule 49 (expresion -> FALSE .)
-    IGUALQUE        reduce using rule 49 (expresion -> FALSE .)
-    DIFERENTE       reduce using rule 49 (expresion -> FALSE .)
-    AND             reduce using rule 49 (expresion -> FALSE .)
-    OR              reduce using rule 49 (expresion -> FALSE .)
-    PUNTOCOMA       reduce using rule 49 (expresion -> FALSE .)
-    PARDER          reduce using rule 49 (expresion -> FALSE .)
-
-
-state 36
-
     (15) declaracion_instr -> VAR ID IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -799,30 +750,28 @@ state 36
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 64
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 62
+    decimal                        shift and go to state 31
 
-state 37
+state 36
 
     (17) declaracion_instr -> VAR ID DOSPUNTOS . tipo_dato
     (19) declaracion_instr -> VAR ID DOSPUNTOS . tipo_dato IGUAL expresion
@@ -832,22 +781,22 @@ state 37
     (12) tipo_dato -> . BOOLEAN
     (13) tipo_dato -> . CHAR
 
-    STRING          shift and go to state 43
-    NUMBER          shift and go to state 44
-    FLOAT           shift and go to state 45
-    BOOLEAN         shift and go to state 46
-    CHAR            shift and go to state 47
+    STRING          shift and go to state 42
+    NUMBER          shift and go to state 43
+    FLOAT           shift and go to state 44
+    BOOLEAN         shift and go to state 45
+    CHAR            shift and go to state 46
 
-    tipo_dato                      shift and go to state 65
+    tipo_dato                      shift and go to state 63
 
-state 38
+state 37
 
     (21) constante_instr -> CONST ID IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -855,30 +804,28 @@ state 38
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 66
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 64
+    decimal                        shift and go to state 31
 
-state 39
+state 38
 
     (22) constante_instr -> CONST ID DOSPUNTOS . tipo_dato IGUAL expresion
     (9) tipo_dato -> . STRING
@@ -887,41 +834,41 @@ state 39
     (12) tipo_dato -> . BOOLEAN
     (13) tipo_dato -> . CHAR
 
-    STRING          shift and go to state 43
-    NUMBER          shift and go to state 44
-    FLOAT           shift and go to state 45
-    BOOLEAN         shift and go to state 46
-    CHAR            shift and go to state 47
+    STRING          shift and go to state 42
+    NUMBER          shift and go to state 43
+    FLOAT           shift and go to state 44
+    BOOLEAN         shift and go to state 45
+    CHAR            shift and go to state 46
 
-    tipo_dato                      shift and go to state 67
+    tipo_dato                      shift and go to state 65
+
+state 39
+
+    (8) imprimir_instr -> CONSOLE PUNTO LOG PARIZQ . expresionCadena PARDER
+    (49) expresionCadena -> . CADENA COMA expresionCadena2
+    (50) expresionCadena -> . CADENA
+    (51) expresionCadena -> . TRUE
+    (52) expresionCadena -> . FALSE
+    (53) expresionCadena -> . decimal
+    (54) expresionCadena -> . ENTERO
+    (44) decimal -> . ENTERO PUNTO ENTERO
+
+    CADENA          shift and go to state 67
+    TRUE            shift and go to state 68
+    FALSE           shift and go to state 69
+    ENTERO          shift and go to state 71
+
+    expresionCadena                shift and go to state 66
+    decimal                        shift and go to state 70
 
 state 40
 
-    (8) imprimir_instr -> CONSOLE PUNTO LOG PARIZQ . expresionCadena PARDER
-    (50) expresionCadena -> . CADENA COMA expresionCadena2
-    (51) expresionCadena -> . CADENA
-    (52) expresionCadena -> . TRUE
-    (53) expresionCadena -> . FALSE
-    (54) expresionCadena -> . decimal
-    (55) expresionCadena -> . ENTERO
-    (45) decimal -> . ENTERO PUNTO ENTERO
-
-    CADENA          shift and go to state 69
-    TRUE            shift and go to state 70
-    FALSE           shift and go to state 71
-    ENTERO          shift and go to state 73
-
-    expresionCadena                shift and go to state 68
-    decimal                        shift and go to state 72
-
-state 41
-
     (14) declaracion_instr -> LET ID IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -930,29 +877,29 @@ state 41
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 14 (declaracion_instr -> LET ID IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
 
-state 42
+state 41
 
     (16) declaracion_instr -> LET ID DOSPUNTOS tipo_dato .
     (18) declaracion_instr -> LET ID DOSPUNTOS tipo_dato . IGUAL expresion
 
     PUNTOCOMA       reduce using rule 16 (declaracion_instr -> LET ID DOSPUNTOS tipo_dato .)
-    IGUAL           shift and go to state 74
+    IGUAL           shift and go to state 72
 
 
-state 43
+state 42
 
     (9) tipo_dato -> STRING .
 
@@ -960,7 +907,7 @@ state 43
     PUNTOCOMA       reduce using rule 9 (tipo_dato -> STRING .)
 
 
-state 44
+state 43
 
     (10) tipo_dato -> NUMBER .
 
@@ -968,7 +915,7 @@ state 44
     PUNTOCOMA       reduce using rule 10 (tipo_dato -> NUMBER .)
 
 
-state 45
+state 44
 
     (11) tipo_dato -> FLOAT .
 
@@ -976,7 +923,7 @@ state 45
     PUNTOCOMA       reduce using rule 11 (tipo_dato -> FLOAT .)
 
 
-state 46
+state 45
 
     (12) tipo_dato -> BOOLEAN .
 
@@ -984,7 +931,7 @@ state 46
     PUNTOCOMA       reduce using rule 12 (tipo_dato -> BOOLEAN .)
 
 
-state 47
+state 46
 
     (13) tipo_dato -> CHAR .
 
@@ -992,21 +939,57 @@ state 47
     PUNTOCOMA       reduce using rule 13 (tipo_dato -> CHAR .)
 
 
+state 47
+
+    (68) expresion -> ID PUNTO . ID
+
+    ID              shift and go to state 73
+
+
 state 48
 
-    (69) expresion -> ID PUNTO . ID
+    (23) expresion -> expresion MAS . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion MAYOR expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion IGUALQUE expresion
+    (38) expresion -> . expresion DIFERENTE expresion
+    (39) expresion -> . expresion AND expresion
+    (40) expresion -> . expresion OR expresion
+    (41) expresion -> . NOT expresion
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    ID              shift and go to state 75
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
+    ID              shift and go to state 26
 
+    expresion                      shift and go to state 74
+    decimal                        shift and go to state 31
 
 state 49
 
-    (30) expresion -> expresion MAS . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (24) expresion -> expresion MENOS . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1014,37 +997,35 @@ state 49
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 76
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 75
+    decimal                        shift and go to state 31
 
 state 50
 
-    (31) expresion -> expresion MENOS . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (25) expresion -> expresion POR . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1052,37 +1033,35 @@ state 50
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 77
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 76
+    decimal                        shift and go to state 31
 
 state 51
 
-    (32) expresion -> expresion POR . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (26) expresion -> expresion DIVIDIDO . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1090,37 +1069,35 @@ state 51
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 78
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 77
+    decimal                        shift and go to state 31
 
 state 52
 
-    (33) expresion -> expresion DIVIDIDO . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (27) expresion -> expresion MODULO . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1128,37 +1105,35 @@ state 52
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 79
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 78
+    decimal                        shift and go to state 31
 
 state 53
 
-    (34) expresion -> expresion MODULO . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (35) expresion -> expresion MAYOR . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1166,37 +1141,35 @@ state 53
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 80
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 79
+    decimal                        shift and go to state 31
 
 state 54
 
-    (35) expresion -> expresion MAYOR . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (36) expresion -> expresion MENORQUE . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1204,37 +1177,35 @@ state 54
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 81
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 80
+    decimal                        shift and go to state 31
 
 state 55
 
-    (36) expresion -> expresion MENORQUE . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (37) expresion -> expresion IGUALQUE . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1242,37 +1213,35 @@ state 55
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 82
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 81
+    decimal                        shift and go to state 31
 
 state 56
 
-    (37) expresion -> expresion IGUALQUE . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (38) expresion -> expresion DIFERENTE . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1280,37 +1249,35 @@ state 56
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 83
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 82
+    decimal                        shift and go to state 31
 
 state 57
 
-    (38) expresion -> expresion DIFERENTE . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (39) expresion -> expresion AND . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1318,37 +1285,35 @@ state 57
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 84
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 83
+    decimal                        shift and go to state 31
 
 state 58
 
-    (39) expresion -> expresion AND . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (40) expresion -> expresion OR . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1356,117 +1321,35 @@ state 58
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 85
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 84
+    decimal                        shift and go to state 31
 
 state 59
 
-    (40) expresion -> expresion OR . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
-    (35) expresion -> . expresion MAYOR expresion
-    (36) expresion -> . expresion MENORQUE expresion
-    (37) expresion -> . expresion IGUALQUE expresion
-    (38) expresion -> . expresion DIFERENTE expresion
-    (39) expresion -> . expresion AND expresion
-    (40) expresion -> . expresion OR expresion
-    (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
-
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
-    ID              shift and go to state 26
-
-    expresion                      shift and go to state 86
-    decimal                        shift and go to state 32
-
-state 60
-
-    (42) expresion -> MENOS expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
-    (35) expresion -> expresion . MAYOR expresion
-    (36) expresion -> expresion . MENORQUE expresion
-    (37) expresion -> expresion . IGUALQUE expresion
-    (38) expresion -> expresion . DIFERENTE expresion
-    (39) expresion -> expresion . AND expresion
-    (40) expresion -> expresion . OR expresion
-
-    MAS             reduce using rule 42 (expresion -> MENOS expresion .)
-    MENOS           reduce using rule 42 (expresion -> MENOS expresion .)
-    POR             reduce using rule 42 (expresion -> MENOS expresion .)
-    DIVIDIDO        reduce using rule 42 (expresion -> MENOS expresion .)
-    MODULO          reduce using rule 42 (expresion -> MENOS expresion .)
-    MAYOR           reduce using rule 42 (expresion -> MENOS expresion .)
-    MENORQUE        reduce using rule 42 (expresion -> MENOS expresion .)
-    IGUALQUE        reduce using rule 42 (expresion -> MENOS expresion .)
-    DIFERENTE       reduce using rule 42 (expresion -> MENOS expresion .)
-    AND             reduce using rule 42 (expresion -> MENOS expresion .)
-    OR              reduce using rule 42 (expresion -> MENOS expresion .)
-    PUNTOCOMA       reduce using rule 42 (expresion -> MENOS expresion .)
-    PARDER          reduce using rule 42 (expresion -> MENOS expresion .)
-
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! POR             [ shift and go to state 51 ]
-  ! DIVIDIDO        [ shift and go to state 52 ]
-  ! MODULO          [ shift and go to state 53 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
-
-
-state 61
-
     (41) expresion -> NOT expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1488,27 +1371,27 @@ state 61
     PUNTOCOMA       reduce using rule 41 (expresion -> NOT expresion .)
     PARDER          reduce using rule 41 (expresion -> NOT expresion .)
 
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! POR             [ shift and go to state 51 ]
-  ! DIVIDIDO        [ shift and go to state 52 ]
-  ! MODULO          [ shift and go to state 53 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIVIDIDO        [ shift and go to state 51 ]
+  ! MODULO          [ shift and go to state 52 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
 
 
-state 62
+state 60
 
-    (43) expresion -> PARIZQ expresion . PARDER
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (42) expresion -> PARIZQ expresion . PARDER
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1516,35 +1399,35 @@ state 62
     (39) expresion -> expresion . AND expresion
     (40) expresion -> expresion . OR expresion
 
-    PARDER          shift and go to state 87
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    PARDER          shift and go to state 85
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
 
-state 63
+state 61
 
-    (45) decimal -> ENTERO PUNTO . ENTERO
+    (44) decimal -> ENTERO PUNTO . ENTERO
 
-    ENTERO          shift and go to state 88
+    ENTERO          shift and go to state 86
 
 
-state 64
+state 62
 
     (15) declaracion_instr -> VAR ID IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1553,36 +1436,36 @@ state 64
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 15 (declaracion_instr -> VAR ID IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
 
-state 65
+state 63
 
     (17) declaracion_instr -> VAR ID DOSPUNTOS tipo_dato .
     (19) declaracion_instr -> VAR ID DOSPUNTOS tipo_dato . IGUAL expresion
 
     PUNTOCOMA       reduce using rule 17 (declaracion_instr -> VAR ID DOSPUNTOS tipo_dato .)
-    IGUAL           shift and go to state 89
+    IGUAL           shift and go to state 87
 
 
-state 66
+state 64
 
     (21) constante_instr -> CONST ID IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1591,80 +1474,80 @@ state 66
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 21 (constante_instr -> CONST ID IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 65
+
+    (22) constante_instr -> CONST ID DOSPUNTOS tipo_dato . IGUAL expresion
+
+    IGUAL           shift and go to state 88
+
+
+state 66
+
+    (8) imprimir_instr -> CONSOLE PUNTO LOG PARIZQ expresionCadena . PARDER
+
+    PARDER          shift and go to state 89
 
 
 state 67
 
-    (22) constante_instr -> CONST ID DOSPUNTOS tipo_dato . IGUAL expresion
+    (49) expresionCadena -> CADENA . COMA expresionCadena2
+    (50) expresionCadena -> CADENA .
 
-    IGUAL           shift and go to state 90
+    COMA            shift and go to state 90
+    PARDER          reduce using rule 50 (expresionCadena -> CADENA .)
 
 
 state 68
 
-    (8) imprimir_instr -> CONSOLE PUNTO LOG PARIZQ expresionCadena . PARDER
+    (51) expresionCadena -> TRUE .
 
-    PARDER          shift and go to state 91
+    PARDER          reduce using rule 51 (expresionCadena -> TRUE .)
 
 
 state 69
 
-    (50) expresionCadena -> CADENA . COMA expresionCadena2
-    (51) expresionCadena -> CADENA .
+    (52) expresionCadena -> FALSE .
 
-    COMA            shift and go to state 92
-    PARDER          reduce using rule 51 (expresionCadena -> CADENA .)
+    PARDER          reduce using rule 52 (expresionCadena -> FALSE .)
 
 
 state 70
 
-    (52) expresionCadena -> TRUE .
+    (53) expresionCadena -> decimal .
 
-    PARDER          reduce using rule 52 (expresionCadena -> TRUE .)
+    PARDER          reduce using rule 53 (expresionCadena -> decimal .)
 
 
 state 71
 
-    (53) expresionCadena -> FALSE .
+    (54) expresionCadena -> ENTERO .
+    (44) decimal -> ENTERO . PUNTO ENTERO
 
-    PARDER          reduce using rule 53 (expresionCadena -> FALSE .)
+    PARDER          reduce using rule 54 (expresionCadena -> ENTERO .)
+    PUNTO           shift and go to state 61
 
 
 state 72
 
-    (54) expresionCadena -> decimal .
-
-    PARDER          reduce using rule 54 (expresionCadena -> decimal .)
-
-
-state 73
-
-    (55) expresionCadena -> ENTERO .
-    (45) decimal -> ENTERO . PUNTO ENTERO
-
-    PARDER          reduce using rule 55 (expresionCadena -> ENTERO .)
-    PUNTO           shift and go to state 63
-
-
-state 74
-
     (18) declaracion_instr -> LET ID DOSPUNTOS tipo_dato IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
     (35) expresion -> . expresion MAYOR expresion
     (36) expresion -> . expresion MENORQUE expresion
     (37) expresion -> . expresion IGUALQUE expresion
@@ -1672,56 +1555,138 @@ state 74
     (39) expresion -> . expresion AND expresion
     (40) expresion -> . expresion OR expresion
     (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
     ID              shift and go to state 26
 
-    expresion                      shift and go to state 93
-    decimal                        shift and go to state 32
+    expresion                      shift and go to state 91
+    decimal                        shift and go to state 31
+
+state 73
+
+    (68) expresion -> ID PUNTO ID .
+
+    MAS             reduce using rule 68 (expresion -> ID PUNTO ID .)
+    MENOS           reduce using rule 68 (expresion -> ID PUNTO ID .)
+    POR             reduce using rule 68 (expresion -> ID PUNTO ID .)
+    DIVIDIDO        reduce using rule 68 (expresion -> ID PUNTO ID .)
+    MODULO          reduce using rule 68 (expresion -> ID PUNTO ID .)
+    MAYOR           reduce using rule 68 (expresion -> ID PUNTO ID .)
+    MENORQUE        reduce using rule 68 (expresion -> ID PUNTO ID .)
+    IGUALQUE        reduce using rule 68 (expresion -> ID PUNTO ID .)
+    DIFERENTE       reduce using rule 68 (expresion -> ID PUNTO ID .)
+    AND             reduce using rule 68 (expresion -> ID PUNTO ID .)
+    OR              reduce using rule 68 (expresion -> ID PUNTO ID .)
+    PUNTOCOMA       reduce using rule 68 (expresion -> ID PUNTO ID .)
+    PARDER          reduce using rule 68 (expresion -> ID PUNTO ID .)
+
+
+state 74
+
+    (23) expresion -> expresion MAS expresion .
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . MAYOR expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . IGUALQUE expresion
+    (38) expresion -> expresion . DIFERENTE expresion
+    (39) expresion -> expresion . AND expresion
+    (40) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 23 (expresion -> expresion MAS expresion .)
+    MENOS           reduce using rule 23 (expresion -> expresion MAS expresion .)
+    MAYOR           reduce using rule 23 (expresion -> expresion MAS expresion .)
+    MENORQUE        reduce using rule 23 (expresion -> expresion MAS expresion .)
+    IGUALQUE        reduce using rule 23 (expresion -> expresion MAS expresion .)
+    DIFERENTE       reduce using rule 23 (expresion -> expresion MAS expresion .)
+    AND             reduce using rule 23 (expresion -> expresion MAS expresion .)
+    OR              reduce using rule 23 (expresion -> expresion MAS expresion .)
+    PUNTOCOMA       reduce using rule 23 (expresion -> expresion MAS expresion .)
+    PARDER          reduce using rule 23 (expresion -> expresion MAS expresion .)
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+
+  ! POR             [ reduce using rule 23 (expresion -> expresion MAS expresion .) ]
+  ! DIVIDIDO        [ reduce using rule 23 (expresion -> expresion MAS expresion .) ]
+  ! MODULO          [ reduce using rule 23 (expresion -> expresion MAS expresion .) ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
 
 state 75
 
-    (69) expresion -> ID PUNTO ID .
+    (24) expresion -> expresion MENOS expresion .
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
+    (35) expresion -> expresion . MAYOR expresion
+    (36) expresion -> expresion . MENORQUE expresion
+    (37) expresion -> expresion . IGUALQUE expresion
+    (38) expresion -> expresion . DIFERENTE expresion
+    (39) expresion -> expresion . AND expresion
+    (40) expresion -> expresion . OR expresion
 
-    MAS             reduce using rule 69 (expresion -> ID PUNTO ID .)
-    MENOS           reduce using rule 69 (expresion -> ID PUNTO ID .)
-    POR             reduce using rule 69 (expresion -> ID PUNTO ID .)
-    DIVIDIDO        reduce using rule 69 (expresion -> ID PUNTO ID .)
-    MODULO          reduce using rule 69 (expresion -> ID PUNTO ID .)
-    MAYOR           reduce using rule 69 (expresion -> ID PUNTO ID .)
-    MENORQUE        reduce using rule 69 (expresion -> ID PUNTO ID .)
-    IGUALQUE        reduce using rule 69 (expresion -> ID PUNTO ID .)
-    DIFERENTE       reduce using rule 69 (expresion -> ID PUNTO ID .)
-    AND             reduce using rule 69 (expresion -> ID PUNTO ID .)
-    OR              reduce using rule 69 (expresion -> ID PUNTO ID .)
-    PUNTOCOMA       reduce using rule 69 (expresion -> ID PUNTO ID .)
-    PARDER          reduce using rule 69 (expresion -> ID PUNTO ID .)
+    MAS             reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    MENOS           reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    MAYOR           reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    MENORQUE        reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    IGUALQUE        reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    DIFERENTE       reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    AND             reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    OR              reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    PUNTOCOMA       reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    PARDER          reduce using rule 24 (expresion -> expresion MENOS expresion .)
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+
+  ! POR             [ reduce using rule 24 (expresion -> expresion MENOS expresion .) ]
+  ! DIVIDIDO        [ reduce using rule 24 (expresion -> expresion MENOS expresion .) ]
+  ! MODULO          [ reduce using rule 24 (expresion -> expresion MENOS expresion .) ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
 
 
 state 76
 
-    (30) expresion -> expresion MAS expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (25) expresion -> expresion POR expresion .
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1729,41 +1694,41 @@ state 76
     (39) expresion -> expresion . AND expresion
     (40) expresion -> expresion . OR expresion
 
-    MAS             reduce using rule 30 (expresion -> expresion MAS expresion .)
-    MENOS           reduce using rule 30 (expresion -> expresion MAS expresion .)
-    MAYOR           reduce using rule 30 (expresion -> expresion MAS expresion .)
-    MENORQUE        reduce using rule 30 (expresion -> expresion MAS expresion .)
-    IGUALQUE        reduce using rule 30 (expresion -> expresion MAS expresion .)
-    DIFERENTE       reduce using rule 30 (expresion -> expresion MAS expresion .)
-    AND             reduce using rule 30 (expresion -> expresion MAS expresion .)
-    OR              reduce using rule 30 (expresion -> expresion MAS expresion .)
-    PUNTOCOMA       reduce using rule 30 (expresion -> expresion MAS expresion .)
-    PARDER          reduce using rule 30 (expresion -> expresion MAS expresion .)
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
+    MAS             reduce using rule 25 (expresion -> expresion POR expresion .)
+    MENOS           reduce using rule 25 (expresion -> expresion POR expresion .)
+    POR             reduce using rule 25 (expresion -> expresion POR expresion .)
+    DIVIDIDO        reduce using rule 25 (expresion -> expresion POR expresion .)
+    MODULO          reduce using rule 25 (expresion -> expresion POR expresion .)
+    MAYOR           reduce using rule 25 (expresion -> expresion POR expresion .)
+    MENORQUE        reduce using rule 25 (expresion -> expresion POR expresion .)
+    IGUALQUE        reduce using rule 25 (expresion -> expresion POR expresion .)
+    DIFERENTE       reduce using rule 25 (expresion -> expresion POR expresion .)
+    AND             reduce using rule 25 (expresion -> expresion POR expresion .)
+    OR              reduce using rule 25 (expresion -> expresion POR expresion .)
+    PUNTOCOMA       reduce using rule 25 (expresion -> expresion POR expresion .)
+    PARDER          reduce using rule 25 (expresion -> expresion POR expresion .)
 
-  ! POR             [ reduce using rule 30 (expresion -> expresion MAS expresion .) ]
-  ! DIVIDIDO        [ reduce using rule 30 (expresion -> expresion MAS expresion .) ]
-  ! MODULO          [ reduce using rule 30 (expresion -> expresion MAS expresion .) ]
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIVIDIDO        [ shift and go to state 51 ]
+  ! MODULO          [ shift and go to state 52 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
 
 
 state 77
 
-    (31) expresion -> expresion MENOS expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (26) expresion -> expresion DIVIDIDO expresion .
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1771,41 +1736,41 @@ state 77
     (39) expresion -> expresion . AND expresion
     (40) expresion -> expresion . OR expresion
 
-    MAS             reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    MENOS           reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    MAYOR           reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    MENORQUE        reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    IGUALQUE        reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    DIFERENTE       reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    AND             reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    OR              reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    PUNTOCOMA       reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    PARDER          reduce using rule 31 (expresion -> expresion MENOS expresion .)
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
+    MAS             reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    MENOS           reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    POR             reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    DIVIDIDO        reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    MODULO          reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    MAYOR           reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    MENORQUE        reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    IGUALQUE        reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    DIFERENTE       reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    AND             reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    OR              reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    PUNTOCOMA       reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
+    PARDER          reduce using rule 26 (expresion -> expresion DIVIDIDO expresion .)
 
-  ! POR             [ reduce using rule 31 (expresion -> expresion MENOS expresion .) ]
-  ! DIVIDIDO        [ reduce using rule 31 (expresion -> expresion MENOS expresion .) ]
-  ! MODULO          [ reduce using rule 31 (expresion -> expresion MENOS expresion .) ]
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIVIDIDO        [ shift and go to state 51 ]
+  ! MODULO          [ shift and go to state 52 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
 
 
 state 78
 
-    (32) expresion -> expresion POR expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (27) expresion -> expresion MODULO expresion .
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1813,125 +1778,41 @@ state 78
     (39) expresion -> expresion . AND expresion
     (40) expresion -> expresion . OR expresion
 
-    MAS             reduce using rule 32 (expresion -> expresion POR expresion .)
-    MENOS           reduce using rule 32 (expresion -> expresion POR expresion .)
-    POR             reduce using rule 32 (expresion -> expresion POR expresion .)
-    DIVIDIDO        reduce using rule 32 (expresion -> expresion POR expresion .)
-    MODULO          reduce using rule 32 (expresion -> expresion POR expresion .)
-    MAYOR           reduce using rule 32 (expresion -> expresion POR expresion .)
-    MENORQUE        reduce using rule 32 (expresion -> expresion POR expresion .)
-    IGUALQUE        reduce using rule 32 (expresion -> expresion POR expresion .)
-    DIFERENTE       reduce using rule 32 (expresion -> expresion POR expresion .)
-    AND             reduce using rule 32 (expresion -> expresion POR expresion .)
-    OR              reduce using rule 32 (expresion -> expresion POR expresion .)
-    PUNTOCOMA       reduce using rule 32 (expresion -> expresion POR expresion .)
-    PARDER          reduce using rule 32 (expresion -> expresion POR expresion .)
+    MAS             reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    MENOS           reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    POR             reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    DIVIDIDO        reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    MODULO          reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    MAYOR           reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    MENORQUE        reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    IGUALQUE        reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    DIFERENTE       reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    AND             reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    OR              reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    PUNTOCOMA       reduce using rule 27 (expresion -> expresion MODULO expresion .)
+    PARDER          reduce using rule 27 (expresion -> expresion MODULO expresion .)
 
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! POR             [ shift and go to state 51 ]
-  ! DIVIDIDO        [ shift and go to state 52 ]
-  ! MODULO          [ shift and go to state 53 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
+  ! MAS             [ shift and go to state 48 ]
+  ! MENOS           [ shift and go to state 49 ]
+  ! POR             [ shift and go to state 50 ]
+  ! DIVIDIDO        [ shift and go to state 51 ]
+  ! MODULO          [ shift and go to state 52 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
 
 
 state 79
 
-    (33) expresion -> expresion DIVIDIDO expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
-    (35) expresion -> expresion . MAYOR expresion
-    (36) expresion -> expresion . MENORQUE expresion
-    (37) expresion -> expresion . IGUALQUE expresion
-    (38) expresion -> expresion . DIFERENTE expresion
-    (39) expresion -> expresion . AND expresion
-    (40) expresion -> expresion . OR expresion
-
-    MAS             reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    MENOS           reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    POR             reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    DIVIDIDO        reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    MODULO          reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    MAYOR           reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    MENORQUE        reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    IGUALQUE        reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    DIFERENTE       reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    AND             reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    OR              reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    PUNTOCOMA       reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-    PARDER          reduce using rule 33 (expresion -> expresion DIVIDIDO expresion .)
-
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! POR             [ shift and go to state 51 ]
-  ! DIVIDIDO        [ shift and go to state 52 ]
-  ! MODULO          [ shift and go to state 53 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
-
-
-state 80
-
-    (34) expresion -> expresion MODULO expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
-    (35) expresion -> expresion . MAYOR expresion
-    (36) expresion -> expresion . MENORQUE expresion
-    (37) expresion -> expresion . IGUALQUE expresion
-    (38) expresion -> expresion . DIFERENTE expresion
-    (39) expresion -> expresion . AND expresion
-    (40) expresion -> expresion . OR expresion
-
-    MAS             reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    MENOS           reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    POR             reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    DIVIDIDO        reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    MODULO          reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    MAYOR           reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    MENORQUE        reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    IGUALQUE        reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    DIFERENTE       reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    AND             reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    OR              reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    PUNTOCOMA       reduce using rule 34 (expresion -> expresion MODULO expresion .)
-    PARDER          reduce using rule 34 (expresion -> expresion MODULO expresion .)
-
-  ! MAS             [ shift and go to state 49 ]
-  ! MENOS           [ shift and go to state 50 ]
-  ! POR             [ shift and go to state 51 ]
-  ! DIVIDIDO        [ shift and go to state 52 ]
-  ! MODULO          [ shift and go to state 53 ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
-
-
-state 81
-
     (35) expresion -> expresion MAYOR expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1943,15 +1824,15 @@ state 81
     MENORQUE        reduce using rule 35 (expresion -> expresion MAYOR expresion .)
     PUNTOCOMA       reduce using rule 35 (expresion -> expresion MAYOR expresion .)
     PARDER          reduce using rule 35 (expresion -> expresion MAYOR expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
   ! MAS             [ reduce using rule 35 (expresion -> expresion MAYOR expresion .) ]
   ! MENOS           [ reduce using rule 35 (expresion -> expresion MAYOR expresion .) ]
@@ -1962,18 +1843,18 @@ state 81
   ! DIFERENTE       [ reduce using rule 35 (expresion -> expresion MAYOR expresion .) ]
   ! AND             [ reduce using rule 35 (expresion -> expresion MAYOR expresion .) ]
   ! OR              [ reduce using rule 35 (expresion -> expresion MAYOR expresion .) ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
 
 
-state 82
+state 80
 
     (36) expresion -> expresion MENORQUE expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -1985,15 +1866,15 @@ state 82
     MENORQUE        reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
     PUNTOCOMA       reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
     PARDER          reduce using rule 36 (expresion -> expresion MENORQUE expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
   ! MAS             [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
   ! MENOS           [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
@@ -2004,18 +1885,18 @@ state 82
   ! DIFERENTE       [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
   ! AND             [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
   ! OR              [ reduce using rule 36 (expresion -> expresion MENORQUE expresion .) ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
 
 
-state 83
+state 81
 
     (37) expresion -> expresion IGUALQUE expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2029,13 +1910,13 @@ state 83
     DIFERENTE       reduce using rule 37 (expresion -> expresion IGUALQUE expresion .)
     PUNTOCOMA       reduce using rule 37 (expresion -> expresion IGUALQUE expresion .)
     PARDER          reduce using rule 37 (expresion -> expresion IGUALQUE expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
   ! MAS             [ reduce using rule 37 (expresion -> expresion IGUALQUE expresion .) ]
   ! MENOS           [ reduce using rule 37 (expresion -> expresion IGUALQUE expresion .) ]
@@ -2044,20 +1925,20 @@ state 83
   ! MODULO          [ reduce using rule 37 (expresion -> expresion IGUALQUE expresion .) ]
   ! AND             [ reduce using rule 37 (expresion -> expresion IGUALQUE expresion .) ]
   ! OR              [ reduce using rule 37 (expresion -> expresion IGUALQUE expresion .) ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
 
 
-state 84
+state 82
 
     (38) expresion -> expresion DIFERENTE expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2071,13 +1952,13 @@ state 84
     DIFERENTE       reduce using rule 38 (expresion -> expresion DIFERENTE expresion .)
     PUNTOCOMA       reduce using rule 38 (expresion -> expresion DIFERENTE expresion .)
     PARDER          reduce using rule 38 (expresion -> expresion DIFERENTE expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
   ! MAS             [ reduce using rule 38 (expresion -> expresion DIFERENTE expresion .) ]
   ! MENOS           [ reduce using rule 38 (expresion -> expresion DIFERENTE expresion .) ]
@@ -2086,20 +1967,20 @@ state 84
   ! MODULO          [ reduce using rule 38 (expresion -> expresion DIFERENTE expresion .) ]
   ! AND             [ reduce using rule 38 (expresion -> expresion DIFERENTE expresion .) ]
   ! OR              [ reduce using rule 38 (expresion -> expresion DIFERENTE expresion .) ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
 
 
-state 85
+state 83
 
     (39) expresion -> expresion AND expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2114,12 +1995,12 @@ state 85
     AND             reduce using rule 39 (expresion -> expresion AND expresion .)
     PUNTOCOMA       reduce using rule 39 (expresion -> expresion AND expresion .)
     PARDER          reduce using rule 39 (expresion -> expresion AND expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    OR              shift and go to state 58
 
   ! MAS             [ reduce using rule 39 (expresion -> expresion AND expresion .) ]
   ! MENOS           [ reduce using rule 39 (expresion -> expresion AND expresion .) ]
@@ -2127,21 +2008,21 @@ state 85
   ! DIVIDIDO        [ reduce using rule 39 (expresion -> expresion AND expresion .) ]
   ! MODULO          [ reduce using rule 39 (expresion -> expresion AND expresion .) ]
   ! OR              [ reduce using rule 39 (expresion -> expresion AND expresion .) ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
 
 
-state 86
+state 84
 
     (40) expresion -> expresion OR expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2157,172 +2038,168 @@ state 86
     OR              reduce using rule 40 (expresion -> expresion OR expresion .)
     PUNTOCOMA       reduce using rule 40 (expresion -> expresion OR expresion .)
     PARDER          reduce using rule 40 (expresion -> expresion OR expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
 
   ! MAS             [ reduce using rule 40 (expresion -> expresion OR expresion .) ]
   ! MENOS           [ reduce using rule 40 (expresion -> expresion OR expresion .) ]
   ! POR             [ reduce using rule 40 (expresion -> expresion OR expresion .) ]
   ! DIVIDIDO        [ reduce using rule 40 (expresion -> expresion OR expresion .) ]
   ! MODULO          [ reduce using rule 40 (expresion -> expresion OR expresion .) ]
-  ! MAYOR           [ shift and go to state 54 ]
-  ! MENORQUE        [ shift and go to state 55 ]
-  ! IGUALQUE        [ shift and go to state 56 ]
-  ! DIFERENTE       [ shift and go to state 57 ]
-  ! AND             [ shift and go to state 58 ]
-  ! OR              [ shift and go to state 59 ]
+  ! MAYOR           [ shift and go to state 53 ]
+  ! MENORQUE        [ shift and go to state 54 ]
+  ! IGUALQUE        [ shift and go to state 55 ]
+  ! DIFERENTE       [ shift and go to state 56 ]
+  ! AND             [ shift and go to state 57 ]
+  ! OR              [ shift and go to state 58 ]
+
+
+state 85
+
+    (42) expresion -> PARIZQ expresion PARDER .
+
+    MAS             reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    MENOS           reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    POR             reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    DIVIDIDO        reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    MODULO          reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    MAYOR           reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    MENORQUE        reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    IGUALQUE        reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    DIFERENTE       reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    AND             reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    OR              reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    PUNTOCOMA       reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+    PARDER          reduce using rule 42 (expresion -> PARIZQ expresion PARDER .)
+
+
+state 86
+
+    (44) decimal -> ENTERO PUNTO ENTERO .
+
+    MAS             reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    MENOS           reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    POR             reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    DIVIDIDO        reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    MODULO          reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    MAYOR           reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    MENORQUE        reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    IGUALQUE        reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    DIFERENTE       reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    AND             reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    OR              reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    PUNTOCOMA       reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
+    PARDER          reduce using rule 44 (decimal -> ENTERO PUNTO ENTERO .)
 
 
 state 87
 
-    (43) expresion -> PARIZQ expresion PARDER .
+    (19) declaracion_instr -> VAR ID DOSPUNTOS tipo_dato IGUAL . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion MAYOR expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion IGUALQUE expresion
+    (38) expresion -> . expresion DIFERENTE expresion
+    (39) expresion -> . expresion AND expresion
+    (40) expresion -> . expresion OR expresion
+    (41) expresion -> . NOT expresion
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    MAS             reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    MENOS           reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    POR             reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    DIVIDIDO        reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    MODULO          reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    MAYOR           reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    MENORQUE        reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    IGUALQUE        reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    DIFERENTE       reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    AND             reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    OR              reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    PUNTOCOMA       reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
-    PARDER          reduce using rule 43 (expresion -> PARIZQ expresion PARDER .)
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
+    ID              shift and go to state 26
 
+    expresion                      shift and go to state 92
+    decimal                        shift and go to state 31
 
 state 88
 
-    (45) decimal -> ENTERO PUNTO ENTERO .
+    (22) constante_instr -> CONST ID DOSPUNTOS tipo_dato IGUAL . expresion
+    (23) expresion -> . expresion MAS expresion
+    (24) expresion -> . expresion MENOS expresion
+    (25) expresion -> . expresion POR expresion
+    (26) expresion -> . expresion DIVIDIDO expresion
+    (27) expresion -> . expresion MODULO expresion
+    (35) expresion -> . expresion MAYOR expresion
+    (36) expresion -> . expresion MENORQUE expresion
+    (37) expresion -> . expresion IGUALQUE expresion
+    (38) expresion -> . expresion DIFERENTE expresion
+    (39) expresion -> . expresion AND expresion
+    (40) expresion -> . expresion OR expresion
+    (41) expresion -> . NOT expresion
+    (42) expresion -> . PARIZQ expresion PARDER
+    (43) expresion -> . ENTERO
+    (45) expresion -> . decimal
+    (46) expresion -> . CADENA
+    (47) expresion -> . TRUE
+    (48) expresion -> . FALSE
+    (67) expresion -> . ID
+    (68) expresion -> . ID PUNTO ID
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    MAS             reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    MENOS           reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    POR             reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    DIVIDIDO        reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    MODULO          reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    MAYOR           reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    MENORQUE        reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    IGUALQUE        reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    DIFERENTE       reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    AND             reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    OR              reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    PUNTOCOMA       reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
-    PARDER          reduce using rule 45 (decimal -> ENTERO PUNTO ENTERO .)
+    NOT             shift and go to state 28
+    PARIZQ          shift and go to state 29
+    ENTERO          shift and go to state 30
+    CADENA          shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
+    ID              shift and go to state 26
 
+    expresion                      shift and go to state 93
+    decimal                        shift and go to state 31
 
 state 89
-
-    (19) declaracion_instr -> VAR ID DOSPUNTOS tipo_dato IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
-    (35) expresion -> . expresion MAYOR expresion
-    (36) expresion -> . expresion MENORQUE expresion
-    (37) expresion -> . expresion IGUALQUE expresion
-    (38) expresion -> . expresion DIFERENTE expresion
-    (39) expresion -> . expresion AND expresion
-    (40) expresion -> . expresion OR expresion
-    (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
-
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
-    ID              shift and go to state 26
-
-    expresion                      shift and go to state 94
-    decimal                        shift and go to state 32
-
-state 90
-
-    (22) constante_instr -> CONST ID DOSPUNTOS tipo_dato IGUAL . expresion
-    (30) expresion -> . expresion MAS expresion
-    (31) expresion -> . expresion MENOS expresion
-    (32) expresion -> . expresion POR expresion
-    (33) expresion -> . expresion DIVIDIDO expresion
-    (34) expresion -> . expresion MODULO expresion
-    (35) expresion -> . expresion MAYOR expresion
-    (36) expresion -> . expresion MENORQUE expresion
-    (37) expresion -> . expresion IGUALQUE expresion
-    (38) expresion -> . expresion DIFERENTE expresion
-    (39) expresion -> . expresion AND expresion
-    (40) expresion -> . expresion OR expresion
-    (41) expresion -> . NOT expresion
-    (42) expresion -> . MENOS expresion
-    (43) expresion -> . PARIZQ expresion PARDER
-    (44) expresion -> . ENTERO
-    (46) expresion -> . decimal
-    (47) expresion -> . CADENA
-    (48) expresion -> . TRUE
-    (49) expresion -> . FALSE
-    (68) expresion -> . ID
-    (69) expresion -> . ID PUNTO ID
-    (45) decimal -> . ENTERO PUNTO ENTERO
-
-    NOT             shift and go to state 29
-    MENOS           shift and go to state 28
-    PARIZQ          shift and go to state 30
-    ENTERO          shift and go to state 31
-    CADENA          shift and go to state 33
-    TRUE            shift and go to state 34
-    FALSE           shift and go to state 35
-    ID              shift and go to state 26
-
-    expresion                      shift and go to state 95
-    decimal                        shift and go to state 32
-
-state 91
 
     (8) imprimir_instr -> CONSOLE PUNTO LOG PARIZQ expresionCadena PARDER .
 
     PUNTOCOMA       reduce using rule 8 (imprimir_instr -> CONSOLE PUNTO LOG PARIZQ expresionCadena PARDER .)
 
 
-state 92
+state 90
 
-    (50) expresionCadena -> CADENA COMA . expresionCadena2
-    (56) expresionCadena2 -> . CADENA
-    (57) expresionCadena2 -> . TRUE
-    (58) expresionCadena2 -> . FALSE
-    (59) expresionCadena2 -> . decimal
-    (60) expresionCadena2 -> . ENTERO
-    (45) decimal -> . ENTERO PUNTO ENTERO
+    (49) expresionCadena -> CADENA COMA . expresionCadena2
+    (55) expresionCadena2 -> . CADENA
+    (56) expresionCadena2 -> . TRUE
+    (57) expresionCadena2 -> . FALSE
+    (58) expresionCadena2 -> . decimal
+    (59) expresionCadena2 -> . ENTERO
+    (44) decimal -> . ENTERO PUNTO ENTERO
 
-    CADENA          shift and go to state 96
-    TRUE            shift and go to state 98
-    FALSE           shift and go to state 99
-    ENTERO          shift and go to state 101
+    CADENA          shift and go to state 94
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ENTERO          shift and go to state 99
 
-    expresionCadena2               shift and go to state 97
-    decimal                        shift and go to state 100
+    expresionCadena2               shift and go to state 95
+    decimal                        shift and go to state 98
 
-state 93
+state 91
 
     (18) declaracion_instr -> LET ID DOSPUNTOS tipo_dato IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2331,27 +2208,27 @@ state 93
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 18 (declaracion_instr -> LET ID DOSPUNTOS tipo_dato IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
 
-state 94
+state 92
 
     (19) declaracion_instr -> VAR ID DOSPUNTOS tipo_dato IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2360,27 +2237,27 @@ state 94
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 19 (declaracion_instr -> VAR ID DOSPUNTOS tipo_dato IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
 
 
-state 95
+state 93
 
     (22) constante_instr -> CONST ID DOSPUNTOS tipo_dato IGUAL expresion .
-    (30) expresion -> expresion . MAS expresion
-    (31) expresion -> expresion . MENOS expresion
-    (32) expresion -> expresion . POR expresion
-    (33) expresion -> expresion . DIVIDIDO expresion
-    (34) expresion -> expresion . MODULO expresion
+    (23) expresion -> expresion . MAS expresion
+    (24) expresion -> expresion . MENOS expresion
+    (25) expresion -> expresion . POR expresion
+    (26) expresion -> expresion . DIVIDIDO expresion
+    (27) expresion -> expresion . MODULO expresion
     (35) expresion -> expresion . MAYOR expresion
     (36) expresion -> expresion . MENORQUE expresion
     (37) expresion -> expresion . IGUALQUE expresion
@@ -2389,59 +2266,59 @@ state 95
     (40) expresion -> expresion . OR expresion
 
     PUNTOCOMA       reduce using rule 22 (constante_instr -> CONST ID DOSPUNTOS tipo_dato IGUAL expresion .)
-    MAS             shift and go to state 49
-    MENOS           shift and go to state 50
-    POR             shift and go to state 51
-    DIVIDIDO        shift and go to state 52
-    MODULO          shift and go to state 53
-    MAYOR           shift and go to state 54
-    MENORQUE        shift and go to state 55
-    IGUALQUE        shift and go to state 56
-    DIFERENTE       shift and go to state 57
-    AND             shift and go to state 58
-    OR              shift and go to state 59
+    MAS             shift and go to state 48
+    MENOS           shift and go to state 49
+    POR             shift and go to state 50
+    DIVIDIDO        shift and go to state 51
+    MODULO          shift and go to state 52
+    MAYOR           shift and go to state 53
+    MENORQUE        shift and go to state 54
+    IGUALQUE        shift and go to state 55
+    DIFERENTE       shift and go to state 56
+    AND             shift and go to state 57
+    OR              shift and go to state 58
+
+
+state 94
+
+    (55) expresionCadena2 -> CADENA .
+
+    PARDER          reduce using rule 55 (expresionCadena2 -> CADENA .)
+
+
+state 95
+
+    (49) expresionCadena -> CADENA COMA expresionCadena2 .
+
+    PARDER          reduce using rule 49 (expresionCadena -> CADENA COMA expresionCadena2 .)
 
 
 state 96
 
-    (56) expresionCadena2 -> CADENA .
+    (56) expresionCadena2 -> TRUE .
 
-    PARDER          reduce using rule 56 (expresionCadena2 -> CADENA .)
+    PARDER          reduce using rule 56 (expresionCadena2 -> TRUE .)
 
 
 state 97
 
-    (50) expresionCadena -> CADENA COMA expresionCadena2 .
+    (57) expresionCadena2 -> FALSE .
 
-    PARDER          reduce using rule 50 (expresionCadena -> CADENA COMA expresionCadena2 .)
+    PARDER          reduce using rule 57 (expresionCadena2 -> FALSE .)
 
 
 state 98
 
-    (57) expresionCadena2 -> TRUE .
+    (58) expresionCadena2 -> decimal .
 
-    PARDER          reduce using rule 57 (expresionCadena2 -> TRUE .)
+    PARDER          reduce using rule 58 (expresionCadena2 -> decimal .)
 
 
 state 99
 
-    (58) expresionCadena2 -> FALSE .
+    (59) expresionCadena2 -> ENTERO .
+    (44) decimal -> ENTERO . PUNTO ENTERO
 
-    PARDER          reduce using rule 58 (expresionCadena2 -> FALSE .)
-
-
-state 100
-
-    (59) expresionCadena2 -> decimal .
-
-    PARDER          reduce using rule 59 (expresionCadena2 -> decimal .)
-
-
-state 101
-
-    (60) expresionCadena2 -> ENTERO .
-    (45) decimal -> ENTERO . PUNTO ENTERO
-
-    PARDER          reduce using rule 60 (expresionCadena2 -> ENTERO .)
-    PUNTO           shift and go to state 63
+    PARDER          reduce using rule 59 (expresionCadena2 -> ENTERO .)
+    PUNTO           shift and go to state 61
 

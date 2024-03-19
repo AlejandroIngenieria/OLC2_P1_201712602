@@ -121,6 +121,31 @@ def p_instruccion_constantes(t):
     else:
         t[0] = Constante(t[2], t[6], t[4])
 
+
+# ---------------------------------------------------------------------------- #
+#                            OPERADORES ARITMETICOS                            #
+# ---------------------------------------------------------------------------- #
+
+
+def p_expresion_binaria(t):
+    '''expresion : expresion MAS expresion
+                  | expresion MENOS expresion
+                  | expresion POR expresion
+                  | expresion DIVIDIDO expresion
+                  | expresion MODULO expresion
+                  '''
+    if t[2] == '+':
+        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MAS)
+    elif t[2] == '-':
+        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MENOS)
+    elif t[2] == '*':
+        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.POR)
+    elif t[2] == '/':
+        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.DIVIDIDO)
+    elif t[2] == '%':
+        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MODULO)
+
+
 # ---------------------------------------------------------------------------- #
 #                               OPERADOR TERNARIO                              #
 # ---------------------------------------------------------------------------- #
@@ -194,28 +219,6 @@ def p_instruccion_interface_params(t):
         t[1][t[3]] = t[5]
         t[0] = t[1]
 
-# ---------------------------------------------------------------------------- #
-#                               EXPRESION BINARIA                              #
-# ---------------------------------------------------------------------------- #
-
-
-def p_expresion_binaria(t):
-    '''expresion : expresion MAS expresion
-                  | expresion MENOS expresion
-                  | expresion POR expresion
-                  | expresion DIVIDIDO expresion
-                  | expresion MODULO expresion
-                  '''
-    if t[2] == '+':
-        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MAS)
-    elif t[2] == '-':
-        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MENOS)
-    elif t[2] == '*':
-        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.POR)
-    elif t[2] == '/':
-        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.DIVIDIDO)
-    elif t[2] == '%':
-        t[0] = ExpresionBinaria(t[1], t[3], OPERACION_ARITMETICA.MODULO)
 
 # ---------------------------------------------------------------------------- #
 #                               EXPRESION LOGICA                               #
@@ -261,9 +264,9 @@ def p_operacion_logica(t):
 # ---------------------------------------------------------------------------- #
 
 
-def p_expresion_unaria(t):
-    'expresion : MENOS expresion %prec MENOSUNARIO'
-    t[0] = ExpresionNegativo(t[2])
+# def p_expresion_unaria(t):
+#     'expresion : MENOSUNARIO expresion %prec MENOSUNARIO'
+#     t[0] = ExpresionNegativo(t[2])
 
 # ---------------------------------------------------------------------------- #
 #                            EXPRESION DE AGRUPACION                           #
@@ -287,10 +290,13 @@ def p_expresion_number(t):
 # ---------------------------------------------------------------------------- #
 #                               EXPRESION DECIMAL                              #
 # ---------------------------------------------------------------------------- #
+
+
 def p_decimal(t):
     '''decimal : ENTERO PUNTO ENTERO'''
     t[1] = str(t[1]) + str(t[2]) + str(t[3])
     t[0] = t[1]
+
 
 def p_expresion_decimal(t):
     '''expresion    : decimal

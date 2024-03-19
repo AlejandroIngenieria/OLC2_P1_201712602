@@ -112,15 +112,15 @@ class Editor(QMainWindow):
         instrucciones = g.parse(self.text_edit.toPlainText())
         ts = TablaSimbolos()
         try:
-            errores.clear()
-            resultados.clear()
             procesar_instrucciones(instrucciones, ts, save=True)
             procesar_instrucciones(instrucciones, ts)
+            errores.clear()
+            resultados.clear()
             self.consola_tab.clear()
-            self.tabla_simbolos_tab.clear()
             self.errores_tab.clear()
-            self.consola_tab.append('\n'.join(resultados))
+            self.tabla_simbolos_tab.clear()
             self.tabla_simbolos_tab.append(ts.obtener_datos())
+            self.consola_tab.append('\n'.join(resultados))
             self.errores_tab.append('\n'.join(errores))
             
         except Exception as e:

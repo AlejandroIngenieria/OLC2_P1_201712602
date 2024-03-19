@@ -47,7 +47,6 @@ tokens = [
     'MAYOR',
     'IGUALQUE',
     'DIFERENTE',
-    'MENOSUNARIO',
     'AND',
     'OR',
     'NOT',
@@ -99,7 +98,6 @@ t_MAYORIGUAL = r'>='
 t_MAYOR = r'>'
 t_IGUALQUE = r'=='
 t_DIFERENTE = r'!='
-t_MENOSUNARIO = r'\-'
 t_PUNTO = r'\.'
 t_PUNTOCOMA = r';'
 t_LLAVIZQ = r'{'
@@ -217,5 +215,5 @@ precedence = (
     ('left', 'OR'),  # ||
     ('left', 'MAS', 'MENOS'),  # + -
     ('left', 'POR', 'DIVIDIDO', 'MODULO'),  # * / %
-    ('right', 'MENOSUNARIO', 'NOT')  # - !
+    ('right', 'MENOS', 'NOT')  # - !
 )

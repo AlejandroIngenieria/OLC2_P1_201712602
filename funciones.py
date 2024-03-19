@@ -7,7 +7,6 @@ def procesar_imprimir(instr, ts):
     # print('>> ', resolver_expresion(instr.cad, ts))
     return resolver_expresion(instr.cad, ts)
 
-
 def procesar_declaracion(instr, ts):
     from interfaz import errores
     id = instr.id
@@ -48,7 +47,6 @@ def procesar_declaracion(instr, ts):
     else:
         simbolo = Simbolos(id, tipo, exp)
     ts.agregar(simbolo)
-
 
 def procesar_asignacion(instr, ts):
     id = instr.id
@@ -96,7 +94,6 @@ def procesar_if(instr, ts):
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
         return procesar_instrucciones(instr.instrucciones, TablaLocal)
 
-
 def procesar_if_else(instr, ts):
     expLog = resolver_expresion_logica(instr.expLogica, ts)
     if expLog:
@@ -105,7 +102,6 @@ def procesar_if_else(instr, ts):
     else:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
         return procesar_instrucciones(instr.instrIfFalso, TablaLocal)
-
 
 def resolver_expresion(expCad, ts):
     if isinstance(expCad, ExpresionBinaria):
@@ -136,11 +132,12 @@ def resolver_expresion(expCad, ts):
     else:
         print('Error: Expresión cadena no válida')
 
-
 def resolver_expresion_aritmetica(expNum, ts):
     if isinstance(expNum, ExpresionBinaria):
         exp1 = resolver_expresion_aritmetica(expNum.exp1, ts)
         exp2 = resolver_expresion_aritmetica(expNum.exp2, ts)
+        print("exp1: ", exp1)
+        print("exp2: ", exp2)
 
         if expNum.operador == OPERACION_ARITMETICA.MAS:
             return exp1 + exp2
@@ -149,11 +146,17 @@ def resolver_expresion_aritmetica(expNum, ts):
         if expNum.operador == OPERACION_ARITMETICA.POR:
             return exp1 * exp2
         if expNum.operador == OPERACION_ARITMETICA.DIVIDIDO:
+            if type(exp1).__name__ == "int" and type(exp2).__name__ == "int":
+                return int(exp1/exp2)
             return exp1 / exp2
         if expNum.operador == OPERACION_ARITMETICA.MODULO:
             return exp1 % exp2
 
     elif isinstance(expNum, ExpresionNumero):
+        return expNum.val
+    elif isinstance(expNum, ExpresionDecimal):
+        return expNum.val
+    elif isinstance(expNum, ExpresionConsoleLog):
         return expNum.val
     elif isinstance(expNum, ExpresionID):
         exp_id = ts.obtener(expNum.id)
@@ -165,7 +168,6 @@ def resolver_expresion_aritmetica(expNum, ts):
             return exp_id.props[expNum.prop]
 
         return None
-
 
 def resolver_expresion_logica(expLog, ts):
     exp1 = resolver_expresion_aritmetica(expLog.exp1, ts)
@@ -179,7 +181,6 @@ def resolver_expresion_logica(expLog, ts):
         return exp1 == exp2
     if expLog.operador == OPERACION_LOGICA.NO_IGUAL:
         return exp1 != exp2
-
 
 def procesar_funcion(instr, ts):
     fun_ = ts.obtener(instr.id).instrucciones
@@ -195,14 +196,12 @@ def procesar_funcion(instr, ts):
             # return resolver(exp)
             pass
 
-
 def guardar_funcion(instr, ts):
     funcion_id = instr.id
 
     simbolo = Simbolos(funcion_id, TIPO_DATO.FUNCION,
                        instr.parametros, instr.instrucciones, instr.parametros)
     ts.agregar(simbolo)
-
 
 def guardar_interface(instr, ts):
     interface_id = instr.id
@@ -217,7 +216,6 @@ def guardar_interface(instr, ts):
     simbolo = Simbolos(interface_id, TIPO_DATO.FUNCION,
                        valor=None, props=instr.props)
     ts.agregar(simbolo)
-
 
 def procesar_instrucciones(instrucciones, ts, save=False):
     from interfaz import resultados, errores
