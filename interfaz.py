@@ -7,6 +7,7 @@ import gramatica as g
 #                              VARIABLES GLOBALES                              #
 # ---------------------------------------------------------------------------- #
 errores = []
+resultados = []
 
 class Editor(QMainWindow):
     def __init__(self):
@@ -111,16 +112,17 @@ class Editor(QMainWindow):
         instrucciones = g.parse(self.text_edit.toPlainText())
         ts = TablaSimbolos()
         try:
-            procesar_instrucciones(instrucciones, ts, save=True)
-            resultado = procesar_instrucciones(instrucciones, ts)
             self.consola_tab.clear()
-            self.consola_tab.append(resultado)
             self.tabla_simbolos_tab.clear()
-            self.tabla_simbolos_tab.append(ts.obtener_datos())
             self.errores_tab.clear()
+            procesar_instrucciones(instrucciones, ts, save=True)
+            procesar_instrucciones(instrucciones, ts)
+            self.consola_tab.append('\n'.join(resultados))
+            self.tabla_simbolos_tab.append(ts.obtener_datos())
             self.errores_tab.append('\n'.join(errores))
             
         except Exception as e:
+            errores.append("Error: ", e)
             print("Error: ", e)
             
     def Limpiar(self):

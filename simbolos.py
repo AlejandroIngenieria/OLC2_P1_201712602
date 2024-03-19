@@ -2,8 +2,12 @@ from enum import Enum
 
 
 class TIPO_DATO(Enum):
+    NULL = 0
     ENTERO = 1
-    STRING = 1
+    FLOAT = 2
+    STRING = 3
+    BOOLEAN = 4
+    CHAR = 5
     FUNCION = 10
 
 
@@ -47,7 +51,9 @@ class TablaSimbolos():
         claves_ordenadas = sorted(self.simbolos.keys())
         datos = ""
         # Recorrer las claves ordenadas y obtener los datos de los símbolos
+
         for clave in claves_ordenadas:
             simbolo = self.simbolos[clave]
-            datos += f"ID: {simbolo.id}, Valor: {simbolo.valor}\n"
+            datos += f"ID: {simbolo.id}, Valor: {simbolo.valor} , Tipo: {simbolo.tipo}\n"
         return datos
+

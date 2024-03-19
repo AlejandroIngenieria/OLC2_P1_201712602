@@ -11,9 +11,11 @@ def procesar_imprimir(instr, ts):
 def procesar_declaracion(instr, ts):
     id = instr.id
     exp = resolver_expresion(instr.exp, ts)
-    simbolo = Simbolos(id, TIPO_DATO.ENTERO, exp)
+    tipo = instr.tipo
+    if tipo == "null":
+        tipo = type(exp)
+    simbolo = Simbolos(id, tipo, exp)
     ts.agregar(simbolo)
-
 
 def procesar_asignacion(instr, ts):
     id = instr.id
@@ -45,7 +47,7 @@ def resolver_expresion(expCad, ts):
     elif isinstance(expCad, ExpresionLogica):
         exp = resolver_expresion_logica(expCad, ts)
         return exp
-    elif isinstance(expCad, ExpresionDobleComilla):
+    elif isinstance(expCad, ExpresionConsoleLog):
         return expCad.val
     elif isinstance(expCad, ExpresionID):
         exp_id = ts.obtener(expCad.id)
@@ -146,18 +148,22 @@ def guardar_interface(instr, ts):
 
 
 def procesar_instrucciones(instrucciones, ts, save=False):
+    from interfaz import resultados, errores
     for instr in instrucciones:
         if not save:
             if isinstance(instr, Imprimir):
-                return procesar_imprimir(instr, ts)
+                resultados.append(procesar_imprimir(instr, ts))
+                # return procesar_imprimir(instr, ts)
             elif isinstance(instr, Declaracion):
                 procesar_declaracion(instr, ts)
             elif isinstance(instr, Asignacion):
                 procesar_asignacion(instr, ts)
             elif isinstance(instr, If):
-                return procesar_if(instr, ts)
+                resultados.append(procesar_if(instr, ts))
+                # return procesar_if(instr, ts)
             elif isinstance(instr, IfElse):
-                return procesar_if_else(instr, ts)
+                resultados.append(procesar_if_else(instr, ts))
+                # return procesar_if_else(instr, ts)
             elif isinstance(instr, CallFunction):
                 procesar_funcion(instr, ts)
             elif isinstance(instr, Function):
@@ -166,6 +172,7 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 pass
             else:
                 print('Error: instrucción no válida')
+                errores.append('Error: instrucción no válida')
                 return 'Error: instrucción no válida'
         else:
             '''OTRA VERIFICACION PARA LA CLASE FUNCION'''
@@ -180,5 +187,4 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 guardar_funcion(instr, ts)
             elif isinstance(instr, ExpresionInterface):
                 guardar_interface(instr, ts)
-
 

@@ -1,13 +1,12 @@
 import ply.lex as Lex
 import ply.yacc as yacc
-from simbolos import TIPO_DATO
 from instrucciones import *
 from expresiones import *
 
 # ? ---------------------------------------------------------------------------- #
 # ?                                ANALISIS LEXICO                               #
 # ? ---------------------------------------------------------------------------- #
-
+datos = ["string", "float", "number", "boolean", "char", "null"]
 # ---------------------------------------------------------------------------- #
 #                              PALABRAS RESERVADAS                             #
 # ---------------------------------------------------------------------------- #
@@ -22,10 +21,17 @@ reservadas = {
     'function': 'FUNCTION',
     'interface': 'INTERFACE',
     'array': 'ARRAY',
+    'var': 'VAR',
+    'true': 'TRUE',
+    'false': 'FALSE',
+    'number': 'NUMBER',
+    'float': 'FLOAT',
+    'string': 'STRING',
+    'boolean': 'BOOLEAN',
+    'char': 'CHAR',
     'null': 'NULL',
-    'and': 'AND',
-    'or': 'OR',
-    'not': 'NOT',
+    'const': 'CONST',
+
 }
 
 # ---------------------------------------------------------------------------- #
@@ -48,33 +54,41 @@ tokens = [
     'IGUALQUE',
     'DIFERENTE',
     'MENOSUNARIO',
+    'AND',
+    'OR',
+    'NOT',
     'PUNTO',
     'PUNTOCOMA',
     'DOSPUNTOS',
-    'TIPONUMBER',
-    'TIPOFLOAT',
-    'TIPOSTRING',
-    'TIPOBOOLEAN',
-    'TIPOCHAR',
     'CADENA',
     'ENTERO',
+    'DECIMAL',
     'COMMENTBLOCK',
     'ID',
     'IGUAL',
     'LLAVIZQ',
     'LLAVDER',
-    'COMA'
+    'COMA',
+    'QUESTION',
+    'PARSEINT',
+    'PARSEFLOAT',
+    'TOSTRING',
+    'TOLOWERCASE',
+    'TOUPPERCASE',
+    'TYPEOF',
 ] + list(reservadas.values())
-
 t_CONSOLE = r'console'
 t_LOG = r'log'
 t_LET = r'let'
+t_VAR = r'var'
+t_CONST = r'const'
 t_IF = r'if'
-t_TIPONUMBER = r'number'
-t_TIPOFLOAT = r'float'
-t_TIPOSTRING = r'string'
-t_TIPOBOOLEAN = r'boolean'
-t_TIPOCHAR = r'char'
+t_NUMBER = r'number'
+t_FLOAT = r'float'
+t_STRING = r'string'
+t_BOOLEAN = r'boolean'
+t_CHAR = r'char'
+t_NULL = r'null'
 t_DOSPUNTOS = r':'
 t_IGUAL = r'='
 t_PARIZQ = r'\('
@@ -98,10 +112,18 @@ t_PUNTOCOMA = r';'
 t_LLAVIZQ = r'{'
 t_LLAVDER = r'}'
 t_COMA = r','
-t_NULL = r'null'
 t_AND = r'&&'
 t_OR = r'\|\|'
 t_NOT = r'!'
+t_QUESTION = r'\?'
+t_TRUE = r'true'
+t_FALSE = r'false'
+t_PARSEINT = r'parseInt'
+t_PARSEFLOAT = r'parseFloat'
+t_TOSTRING = r'toString'
+t_TOLOWERCASE = r'toLowerCase'
+t_TOUPPERCASE = r'toUpperCase'
+t_TYPEOF = r'typeof'
 
 # ---------------------------------------------------------------------------- #
 #                               IDENTIFICADORRES                               #
@@ -122,9 +144,17 @@ def t_ID(t):
 
 
 def t_CADENA(t):
-    r'\"(.+?)\"'
+    # Patrón para manejar cadenas con secuencias de escape y saltos de línea
+    r'\"([^"\n\\]*(\\.[^"\n\\]*)*)\"'
     try:
-        t.value = str(t.value)
+        t.value = t.value[1:-1]  # Elimina las comillas al inicio y al final
+        # Reemplaza las secuencias de escape \n por saltos de línea reales
+        t.value = t.value.replace(r'\n', '\n')
+        # Reemplaza las secuencias de escape \t por tabulaciones reales
+        t.value = t.value.replace(r'\t', '\t')
+        t.value = t.value.replace(
+            r'\\', '\\')  # Reemplaza las secuencias de escape \\ por una sola \
+        t.value = str(t.value)  # Convierte a cadena si no lo es
     except ValueError:
         print("Error %d", t.value)
         t.value = ''
@@ -144,10 +174,28 @@ def t_ENTERO(t):
         t.value = 0
     return t
 
+# ---------------------------------------------------------------------------- #
+#                               NUMEROS DECIMALES                              #
+# ---------------------------------------------------------------------------- #
+
+
+def t_DECIMAL(t):
+    r'\d+\.\d+'
+    try:
+        t.value = float(t.value)
+    except ValueError:
+        print("Float value too large %d", t.value)
+        t.value = 0
+    return t
+
 
 t_ignore = " \t"
 
 t_ignore_COMMENTLINE = r'\/\/.*'
+
+t_ignore_inverted_bar = r'\\'
+
+t_ignore_car_return = r'\r'
 
 # ---------------------------------------------------------------------------- #
 #                                  COMENTARIOS                                 #
@@ -167,29 +215,6 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
-# ---------------------------------------------------------------------------- #
-#                                BARRA INVERTIDA                               #
-# ---------------------------------------------------------------------------- #
-
-
-def t_invert_bar(t):
-    r'\\+'
-
-# ---------------------------------------------------------------------------- #
-#                               RETORNO DE CARRO                               #
-# ---------------------------------------------------------------------------- #
-
-
-def t_car_return(t):
-    r'\\r+'
-
-# ---------------------------------------------------------------------------- #
-#                                  TABULACION                                  #
-# ---------------------------------------------------------------------------- #
-
-
-def tabulation(t):
-    r'\\t+'
 
 # ---------------------------------------------------------------------------- #
 #                                ERRORES LEXICOS                               #
@@ -253,16 +278,122 @@ def p_instrucciones_instruccion(t):
 
 
 def p_instruccion(t):
-    '''instruccion      : imprimir_instr
-                        | declaracion_instr
-                        | asignacion_instr
-                        | if_instr
-                        | if_else_instr
-                        | funcion_instr
-                        | call_funcion_instr
-                        | interface_instr
+    '''instruccion  : imprimir_instr PUNTOCOMA
+                    | declaracion_instr PUNTOCOMA
+                    | asignacion_instr PUNTOCOMA
+                    | constante_instr PUNTOCOMA
     '''
+    # | if_instr
+    # | if_else_instr
+    # | funcion_instr
+    # | call_funcion_instr
+    # | interface_instr
     t[0] = t[1]
+# ---------------------------------------------------------------------------- #
+#                              IMPRIMIR EN CONSOLA                             #
+# ---------------------------------------------------------------------------- #
+
+
+def p_instruccion_console(t):
+    '''imprimir_instr : CONSOLE PUNTO LOG PARIZQ expresionCadena PARDER'''
+    t[0] = Imprimir(t[5])
+
+# ---------------------------------------------------------------------------- #
+#                                TIPOS DE DATOS                                #
+# ---------------------------------------------------------------------------- #
+
+
+def p_tipo_dato(t):
+    """ tipo_dato : STRING
+                  | NUMBER
+                  | FLOAT
+                  | BOOLEAN
+                  | CHAR
+    """
+    t[0] = str(t[1])
+
+
+# ---------------------------------------------------------------------------- #
+#                           DECLARACION DE VARIABLES                           #
+# ---------------------------------------------------------------------------- #
+
+def p_instruccion_declaracion(t):
+    '''declaracion_instr : LET ID IGUAL expresion
+                        | VAR ID IGUAL expresion
+                        | LET ID DOSPUNTOS tipo_dato
+                        | VAR ID DOSPUNTOS tipo_dato
+                        | LET ID DOSPUNTOS tipo_dato IGUAL expresion
+                        | VAR ID DOSPUNTOS tipo_dato IGUAL expresion
+                          '''
+    if len(t) == 5:
+        if t[4] in datos:
+            t[0] = Declaracion(t[2], 0, t[4])
+        else:
+            t[0] = Declaracion(t[2], t[4], "null")
+    else:
+        t[0] = Declaracion(t[2], t[6], t[4])
+
+# ---------------------------------------------------------------------------- #
+#                            ASIGNACION DE VARIABLES                           #
+# ---------------------------------------------------------------------------- #
+
+
+def p_instruccion_asignacion(t):
+    '''asignacion_instr : ID IGUAL expresion'''
+    t[0] = Asignacion(t[1], t[3])
+
+# ---------------------------------------------------------------------------- #
+#                           DECLARACION DE CONSTANTES                          #
+# ---------------------------------------------------------------------------- #
+
+
+def p_instruccion_constantes(t):
+    '''constante_instr : CONST ID IGUAL expresion
+                        | CONST ID DOSPUNTOS tipo_dato IGUAL expresion
+                          '''
+    if len(t) == 5:
+        t[0] = Declaracion(t[2], t[4], "null")
+    else:
+        t[0] = Declaracion(t[2], t[6], t[4])
+
+# ---------------------------------------------------------------------------- #
+#                                INSTRUCCION IF                                #
+# ---------------------------------------------------------------------------- #
+
+
+def p_if_instr(t):
+    'if_instr           : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
+    t[0] = If(t[3], t[6])
+
+# ---------------------------------------------------------------------------- #
+#                              INSTRUCCION IF-ELSE                             #
+# ---------------------------------------------------------------------------- #
+
+
+def p_if_else_instr(t):
+    'if_else_instr      : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
+    t[0] = IfElse(t[3], t[6], t[10])
+
+# ---------------------------------------------------------------------------- #
+#                            CREACION DE UNA FUNCION                           #
+# ---------------------------------------------------------------------------- #
+
+
+def p_funcion_instr(t):
+    'funcion_instr      : FUNCTION ID PARIZQ ID COMA ID PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
+    params = [t[4], t[6]]
+    t[0] = Function(t[2], parametros=params, instrucciones=t[9])
+
+# ---------------------------------------------------------------------------- #
+#                            LLAMADO DE UNA FUNCION                            #
+# ---------------------------------------------------------------------------- #
+
+
+def p_call_funcion_instr(t):
+    'call_funcion_instr      : ID PARIZQ expresion COMA expresion PARDER PUNTOCOMA'
+    params = [t[3], t[5]]
+    t[0] = CallFunction(t[1], params=params)
+
 
 # ---------------------------------------------------------------------------- #
 #                           INTERFACE SIN PARAMETROS                           #
@@ -288,78 +419,15 @@ def p_instruccion_interface_params(t):
         t[1][t[3]] = t[5]
         t[0] = t[1]
 
-# def p_tipo_dato(p):
-#     """ tipo_dato : STRING
-#                 | NUMBER """
-
-#     if p.slice[1].type == 'STRING':
-#         p[0] = TIPO_DATO.STRING
-#     elif p.slice[1].type == 'NUMBER':
-#         p[0] = TIPO_DATO.ENTERO
-
 # ---------------------------------------------------------------------------- #
-#                              IMPRIMIR EN CONSOLA                             #
+#                               OPERADOR TERNARIO                              #
 # ---------------------------------------------------------------------------- #
 
 
-def p_instruccion_console(t):
-    '''imprimir_instr : CONSOLE PUNTO LOG PARIZQ expresion PARDER PUNTOCOMA'''
-    t[0] = Imprimir(t[5])
+def ternario(t):
+    '''ternario : expresion QUESTION instrucciones DOSPUNTOS instrucciones PUNTOCOMA'''
+    t[0] = IfElse(t[1], t[3], t[5])
 
-
-# ---------------------------------------------------------------------------- #
-#                           DECLARACION DE VARIABLES                           #
-# ---------------------------------------------------------------------------- #
-def p_instruccion_declaracion(t):
-    '''declaracion_instr : LET ID IGUAL expresion PUNTOCOMA'''
-    t[0] = Declaracion(t[2], t[4])
-
-# ---------------------------------------------------------------------------- #
-#                            ASIGNACION DE VARIABLES                           #
-# ---------------------------------------------------------------------------- #
-
-
-def p_instruccion_asignacion(t):
-    '''asignacion_instr : ID IGUAL expresion PUNTOCOMA'''
-    t[0] = Asignacion(t[1], t[3])
-
-# ---------------------------------------------------------------------------- #
-#                                INSTRUCCION IF                                #
-# ---------------------------------------------------------------------------- #
-
-
-def p_if_instr(t):
-    'if_instr           : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
-    t[0] = If(t[3], t[6])
-
-# ---------------------------------------------------------------------------- #
-#                            CREACION DE UNA FUNCION                           #
-# ---------------------------------------------------------------------------- #
-
-
-def p_funcion_instr(t):
-    'funcion_instr      : FUNCTION ID PARIZQ ID COMA ID PARDER LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
-    params = [t[4], t[6]]
-    t[0] = Function(t[2], parametros=params, instrucciones=t[9])
-
-# ---------------------------------------------------------------------------- #
-#                            LLAMADO DE UNA FUNCION                            #
-# ---------------------------------------------------------------------------- #
-
-
-def p_call_funcion_instr(t):
-    'call_funcion_instr      : ID PARIZQ expresion COMA expresion PARDER PUNTOCOMA'
-    params = [t[3], t[5]]
-    t[0] = CallFunction(t[1], params=params)
-
-# ---------------------------------------------------------------------------- #
-#                              INSTRUCCION IF-ELSE                             #
-# ---------------------------------------------------------------------------- #
-
-
-def p_if_else_instr(t):
-    'if_else_instr      : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER PUNTOCOMA'
-    t[0] = IfElse(t[3], t[6], t[10])
 
 # ---------------------------------------------------------------------------- #
 #                               EXPRESION BINARIA                              #
@@ -404,10 +472,10 @@ def p_expresion_logica(t):
 # ---------------------------------------------------------------------------- #
 
 
-# def p_operacion_logica(t):
-#     '''expresion : expresion AND expresion
-#                   | expresion OR expresion
-#                   | NOT expresion'''
+def p_operacion_logica(t):
+    '''expresion : expresion AND expresion
+                  | expresion OR expresion
+                  | NOT expresion'''
 
 # ---------------------------------------------------------------------------- #
 #                               EXPRESION UNARIA                               #
@@ -433,7 +501,8 @@ def p_expresion_agrupacion(t):
 
 
 def p_expresion_number(t):
-    '''expresion    : ENTERO'''
+    '''expresion    : ENTERO
+                     '''
     t[0] = ExpresionNumero(t[1])
 
 # ---------------------------------------------------------------------------- #
@@ -441,10 +510,86 @@ def p_expresion_number(t):
 # ---------------------------------------------------------------------------- #
 
 
-def p_expresion_cadena(t):
-    '''expresion    : CADENA'''
-    t[0] = ExpresionDobleComilla(t[1])
+def p_expresion_cadenas(t):
+    '''expresion : CADENA
+    '''
+    t[0] = ExpresionConsoleLog(t[1])
 
+
+def p_expresion_cadena(t):
+    '''expresionCadena : CADENA COMA expresionCadena2
+    | CADENA
+    | TRUE
+    | FALSE
+    | NUMBER
+    | DECIMAL
+    '''
+    try:
+        t[1] = str(t[1]) + " " + str(t[3])
+    except:
+        None
+    # print("cadena procesada: "+str(t[1]))
+    t[0] = ExpresionConsoleLog(str(t[1]))
+
+
+def p_expresion_cadena2(t):
+    '''expresionCadena2 : CADENA
+    | TRUE
+    | FALSE
+    | ENTERO
+    | DECIMAL
+    '''
+    t[0] = str(t[1])
+
+
+# ---------------------------------------------------------------------------- #
+#                                   PARSE INT                                  #
+# ---------------------------------------------------------------------------- #
+
+
+def p_parseInt(t):
+    '''parseInt : PARSEINT PARIZQ expresionCadena PARDER PUNTOCOMA'''
+    t[0] = int(t[3])
+
+# ---------------------------------------------------------------------------- #
+#                                  PARSE FLOAT                                 #
+# ---------------------------------------------------------------------------- #
+
+
+def p_parseFloat(t):
+    '''parseFloat : PARSEFLOAT PARIZQ expresionCadena PARDER PUNTOCOMA'''
+    t[0] = float(t[3])
+
+
+# ---------------------------------------------------------------------------- #
+#                                   TO STRING                                  #
+# ---------------------------------------------------------------------------- #
+
+def p_toString(t):
+    '''toString : ID PUNTO TOSTRING PARIZQ PARDER'''
+
+# ---------------------------------------------------------------------------- #
+#                                 TO LOWER CASE                                #
+# ---------------------------------------------------------------------------- #
+
+
+def p_toLowerCase(t):
+    '''toLowerCase : ID PUNTO TOLOWERCASE PARIZQ PARDER'''
+# ---------------------------------------------------------------------------- #
+#                                 TO UPPER CASE                                #
+# ---------------------------------------------------------------------------- #
+
+
+def p_toUpperCase(t):
+    '''toUpperCase : ID PUNTO TOUPPERCASE PARIZQ PARDER'''
+# ---------------------------------------------------------------------------- #
+#                                    TYPEOF                                    #
+# ---------------------------------------------------------------------------- #
+
+
+def p_typeof(t):
+    '''typeof : TYPEOF expresion
+                | TYPEOF ID'''
 # ---------------------------------------------------------------------------- #
 #                                EXPRESION DE ID                               #
 # ---------------------------------------------------------------------------- #

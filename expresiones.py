@@ -6,13 +6,18 @@ class OPERACION_ARITMETICA(Enum):
     MENOS = 2
     POR = 3
     DIVIDIDO = 4
+    MODULO = 5
 
 
 class OPERACION_LOGICA(Enum):
-    MAYOR_QUE = 1
-    MENOR_QUE = 2
-    IGUAL = 3
-    NO_IGUAL = 4
+    MENORQUE = 0
+    MENORIGUAL = 1
+    MAYORIGUAL = 2
+    MAYOR = 3
+    IGUALQUE = 4
+    DIFERENTE = 5
+    MENOSUNARIO = 6
+    IGUAL = 7
 
 
 class ExpresionNumerica:
@@ -45,7 +50,7 @@ class ExpresionNumero(ExpresionNumerica):
 
     def __init__(self, val=0):
         self.val = val
-
+        
 
 class ExpresionID(ExpresionNumerica):
     def __init__(self, id):
@@ -62,10 +67,9 @@ class ExpresionCadena:
     ''' Clase abstracta para cadenas'''
 
 
-class ExpresionDobleComilla(ExpresionCadena):
+class ExpresionConsoleLog(ExpresionCadena):
     def __init__(self, val):
-        cadena = val.split("\"")
-        self.val = cadena[1]
+        self.val = val
 
 
 class ExpresionInterface:
