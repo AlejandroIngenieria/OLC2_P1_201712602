@@ -47,6 +47,7 @@ def p_instruccion(t):
                     | constante_instr PUNTOCOMA
                     | if_instr
                     | if_else_instr
+                    | while_instr
     '''
     # | funcion_instr
     # | call_funcion_instr
@@ -230,7 +231,13 @@ def p_if_else_instr(t):
 # ---------------------------------------------------------------------------- #
 #                                     WHILE                                    #
 # ---------------------------------------------------------------------------- #
+def p_while_instr(t):
+    '''while_instr      : WHILE PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER'''
+    t[0] = While(t[3],t[6])
 
+# ---------------------------------------------------------------------------- #
+#                                      FOR                                     #
+# ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
 #                            CREACION DE UNA FUNCION                           #

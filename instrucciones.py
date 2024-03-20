@@ -54,6 +54,11 @@ class IfElse(Instruccion):
         self.instrIfFalso = instrIfFalso
 
 
+class While(Instruccion):
+    def __init__(self, expLogica, instruccciones=[]):
+        self.expLogica = expLogica
+        self.instrucciones = instruccciones
+
 class Function(Instruccion):
     def __init__(self, id, ret_, parametros=[], instrucciones=[]):
         self.id = id

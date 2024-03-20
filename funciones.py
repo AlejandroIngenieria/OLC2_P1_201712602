@@ -21,10 +21,10 @@ def procesar_declaracion(instr, ts):
     id = instr.id
     tipo = instr.tipo
     exp = resolver_expresion(instr.exp, ts)
-    #print("instruccion ID: "+id+" Tipo: " + tipo+" Exp: "+exp)
+    # print("instruccion ID: "+id+" Tipo: " + tipo+" Exp: "+exp)
 
     if exp == "true" or exp == "false":
-        #print("exp es booleana")
+        # print("exp es booleana")
         tipo = "boolean"
         simbolo = Simbolos(id, tipo, exp)
         ts.agregar(simbolo)
@@ -51,7 +51,7 @@ def procesar_declaracion(instr, ts):
             errores.append(
                 f"Error: no se puede asignar un {valTipo} a un {tipo}")
             return
-        
+
     # print("Paso de tipos")
     sim = ts.obtener(id)
     if sim:
@@ -79,11 +79,13 @@ def procesar_declaracion(instr, ts):
 
 
 def procesar_asignacion(instr, ts):
+    from interfaz import errores
     id = instr.id
     sim = ts.obtener(id)
     if sim.cte == 1:
-        from interfaz import errores
         errores.append("Error: no se puede asignar a una constante")
+        return
+    if sim == None:
         return
     exp = resolver_expresion(instr.exp, ts)
     if instr.sim == "+":
@@ -159,7 +161,7 @@ def procesar_if(instr, ts):
     print("expLog", expLog)
     if expLog:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
-        return procesar_instrucciones(instr.instrucciones, TablaLocal)
+        procesar_instrucciones(instr.instrucciones, TablaLocal)
 # ---------------------------------------------------------------------------- #
 #                                    IF ELSE                                   #
 # ---------------------------------------------------------------------------- #
@@ -169,10 +171,10 @@ def procesar_if_else(instr, ts):
     expLog = resolver_expresion_logica(instr.expLogica, ts)
     if expLog:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
-        return procesar_instrucciones(instr.instrIfVerdadero, TablaLocal)
+        procesar_instrucciones(instr.instrIfVerdadero, TablaLocal)
     else:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
-        return procesar_instrucciones(instr.instrIfFalso, TablaLocal)
+        procesar_instrucciones(instr.instrIfFalso, TablaLocal)
 
 
 # ---------------------------------------------------------------------------- #
@@ -249,6 +251,28 @@ def resolver_expresion_logica(expLog, ts):
             return False
         else:
             return True
+
+# ---------------------------------------------------------------------------- #
+#                                     WHILE                                    #
+# ---------------------------------------------------------------------------- #
+
+
+def procesar_while(instr, ts):
+    logica = resolver_expresion_logica(instr.expLogica, ts)
+    while logica:
+        procesar_instrucciones(instr.instrucciones, ts)
+        logica = resolver_expresion_logica(instr.expLogica, ts)
+        print("logica: ", logica)
+
+
+# ---------------------------------------------------------------------------- #
+#                                      FOR                                     #
+# ---------------------------------------------------------------------------- #
+
+
+def procesar_for(instr, ts):
+    return
+
 # ---------------------------------------------------------------------------- #
 #                                   FUNCIONES                                  #
 # ---------------------------------------------------------------------------- #
@@ -350,6 +374,8 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 # return procesar_if(instr, ts)
             elif isinstance(instr, IfElse):
                 procesar_if_else(instr, ts)
+            elif isinstance(instr, While):
+                procesar_while(instr, ts)
                 # return procesar_if_else(instr, ts)
             elif isinstance(instr, CallFunction):
                 procesar_funcion(instr, ts)
