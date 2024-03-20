@@ -42,7 +42,7 @@ class TablaSimbolos():
     def actualizar(self, id, valor):
         if not id in self.simbolos:
             from interfaz import errores
-            err = 'Error variable no definida'
+            err = 'Nota: nueva variable definida'
             errores.append(err)
         else:
             self.simbolos[id].valor = valor

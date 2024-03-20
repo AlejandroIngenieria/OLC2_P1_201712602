@@ -1,0 +1,4 @@
+if(3<4){
+   console.log(3);
+   let a = 20;
+}

@@ -45,11 +45,9 @@ def p_instruccion(t):
                     | declaracion_instr PUNTOCOMA
                     | asignacion_instr PUNTOCOMA
                     | constante_instr PUNTOCOMA
-
+                    | if_instr
+                    | if_else_instr
     '''
-    # | ternario_instr PUNTOCOMA
-    # | if_instr PUNTOCOMA
-    # | if_else_instr PUNTOCOMA
     # | funcion_instr
     # | call_funcion_instr
     # | interface_instr
@@ -92,7 +90,7 @@ def p_instruccion_declaracion(t):
                           '''
     if len(t) == 5:
         if t[4] in datos:
-            t[0] = Declaracion(t[2], 0, t[4])
+            t[0] = Declaracion(t[2], ExpresionConsoleLog("null"), t[4])
         else:
             t[0] = Declaracion(t[2], t[4], "null")
     else:
@@ -104,8 +102,17 @@ def p_instruccion_declaracion(t):
 
 
 def p_instruccion_asignacion(t):
-    '''asignacion_instr : ID IGUAL expresion'''
-    t[0] = Asignacion(t[1], t[3])
+    '''asignacion_instr : ID IGUAL expresion
+                        | ID MAS IGUAL expresion
+                        | ID MENOS IGUAL expresion
+    '''
+    if t[2] == "=":
+        t[0] = Asignacion(t[1], t[3],"=")
+    elif t[2] == "+":
+        t[0] = Asignacion(t[1], t[4],"+")
+    elif t[2] == "-":
+        t[0] = Asignacion(t[1], t[4],"-")
+
 
 # ---------------------------------------------------------------------------- #
 #                           DECLARACION DE CONSTANTES                          #
@@ -150,14 +157,56 @@ def p_expresion_binaria(t):
 
 
 # ---------------------------------------------------------------------------- #
-#                               OPERADOR TERNARIO                              #
+#                               EXPRESION LOGICA                               #
 # ---------------------------------------------------------------------------- #
 
 
-def ternario(t):
-    '''ternario_instr : expresion QUESTION expresion DOSPUNTOS expresion'''
-    t[0] = IfElse(t[1], t[3], t[5])
+def p_expresion_logica(t):
+    '''expresion :  expresion IGUALQUE expresion
+                  | expresion DIFERENTE expresion
+                  | expresion MAYOR expresion
+                  | expresion MAYORIGUAL expresion
+                  | expresion MENORQUE expresion
+                  | expresion MENORIGUAL expresion
+                  '''
+    if t[2] == '==':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.IGUALQUE)
+    elif t[2] == '!=':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.DIFERENTE)
+    elif t[2] == '>':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYOR)
+    elif t[2] == '>=':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYORIGUAL)
+    elif t[2] == '<':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENORQUE)
+    elif t[2] == '<=':
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENORIGUAL)
 
+# ---------------------------------------------------------------------------- #
+#                              OPERADORES LOGICOS                              #
+# ---------------------------------------------------------------------------- #
+
+
+def p_operacion_logica(t):
+    '''expresion : expresion AND expresion
+                  | expresion OR expresion
+                  | NOT expresion'''
+
+    if t[1] == "!":
+        t[0] = ExpresionLogica(t[2], t[2], OPERACION_LOGICA.NOT)
+    elif t[2] == "||":
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.OR)
+    elif t[2] == "&&":
+        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.AND)
+
+
+# ---------------------------------------------------------------------------- #
+#                                   TERNARIO                                   #
+# ---------------------------------------------------------------------------- #
+
+# def p_ternario(t):
+#     '''ternario : expresion QUESTION expresion DOSPUNTOS expresion'''
+#     t[0] = Ternario(t[1], t[3], t[5])
 
 # ---------------------------------------------------------------------------- #
 #                                INSTRUCCION IF                                #
@@ -165,7 +214,7 @@ def ternario(t):
 
 
 def p_if_instr(t):
-    'if_instr           : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER'
+    '''if_instr           : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER'''
     t[0] = If(t[3], t[6])
 
 # ---------------------------------------------------------------------------- #
@@ -176,6 +225,12 @@ def p_if_instr(t):
 def p_if_else_instr(t):
     'if_else_instr      : IF PARIZQ expresion PARDER LLAVIZQ instrucciones LLAVDER ELSE LLAVIZQ instrucciones LLAVDER'
     t[0] = IfElse(t[3], t[6], t[10])
+
+
+# ---------------------------------------------------------------------------- #
+#                                     WHILE                                    #
+# ---------------------------------------------------------------------------- #
+
 
 # ---------------------------------------------------------------------------- #
 #                            CREACION DE UNA FUNCION                           #
@@ -224,49 +279,6 @@ def p_instruccion_interface_params(t):
 
 
 # ---------------------------------------------------------------------------- #
-#                               EXPRESION LOGICA                               #
-# ---------------------------------------------------------------------------- #
-
-
-def p_expresion_logica(t):
-    '''expresion :  expresion IGUALQUE expresion
-                  | expresion DIFERENTE expresion
-                  | expresion MAYOR expresion
-                  | expresion MAYORIGUAL expresion
-                  | expresion MENORQUE expresion
-                  | expresion MENORIGUAL expresion
-                  '''
-    if t[2] == '==':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.IGUALQUE)
-    elif t[2] == '!=':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.DIFERENTE)
-    elif t[2] == '>':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYOR)
-    elif t[2] == '>=':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MAYORIGUAL)
-    elif t[2] == '<':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENORQUE)
-    elif t[2] == '<=':
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.MENORIGUAL)
-
-# ---------------------------------------------------------------------------- #
-#                              OPERADORES LOGICOS                              #
-# ---------------------------------------------------------------------------- #
-
-
-def p_operacion_logica(t):
-    '''expresion : expresion AND expresion
-                  | expresion OR expresion
-                  | NOT expresion'''
-
-    if t[1] == "!":
-        t[0] = ExpresionLogica(t[2], t[2], OPERACION_LOGICA.NOT)
-    elif t[2] == "||":
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.OR)
-    elif t[2] == "&&":
-        t[0] = ExpresionLogica(t[1], t[3], OPERACION_LOGICA.AND)
-
-# ---------------------------------------------------------------------------- #
 #                            EXPRESION DE AGRUPACION                           #
 # ---------------------------------------------------------------------------- #
 
@@ -307,9 +319,9 @@ def p_expresion_decimal(t):
 
 
 def p_expresion_cadenas(t):
-    '''expresion : CADENA
-                | TRUE
+    '''expresion : TRUE
                 | FALSE
+                | CADENA
     '''
     t[0] = ExpresionConsoleLog(t[1])
 

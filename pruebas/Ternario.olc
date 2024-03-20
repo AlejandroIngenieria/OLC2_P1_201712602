@@ -1,0 +1,4 @@
+/*
+OPERADOR TERNARIO
+*/
+var es_mayor = 10 > 18 ? 20 : 30;

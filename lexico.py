@@ -13,6 +13,8 @@ reservadas = {
     'string': 'STRING',
     'if': 'IF',
     'else': 'ELSE',
+    'while': 'WHILE',
+    'for': 'FOR',
     'function': 'FUNCTION',
     'interface': 'INTERFACE',
     'array': 'ARRAY',
@@ -75,6 +77,7 @@ t_LET = r'let'
 t_VAR = r'var'
 t_CONST = r'const'
 t_IF = r'if'
+t_ELSE = r'else'
 t_NUMBER = r'number'
 t_FLOAT = r'float'
 t_STRING = r'string'

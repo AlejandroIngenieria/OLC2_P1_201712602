@@ -30,10 +30,6 @@ class Editor(QMainWindow):
         archivo_menu.addAction('Guardar', self.guardarArchivo).setStatusTip(
             'Guardar el archivo actual')
 
-        menubar.addMenu('Editar')
-
-        menubar.addMenu('Descargar')
-
         # Recuadro para escribir
         self.text_edit = QTextEdit(self)
         self.text_edit.setGeometry(10, 30, 400, 400)
@@ -53,7 +49,7 @@ class Editor(QMainWindow):
             "background-color: #22092C; color: #ffffff;")
         reportes_btn.clicked.connect(self.mostrarReportes)
         
-        limpiar_btn = QPushButton('Limpiar editor', self)
+        limpiar_btn = QPushButton('Limpiar consola', self)
         limpiar_btn.setGeometry(280, 440, 100, 30)
         limpiar_btn.setStyleSheet(
             "background-color: #496989; color: #ffffff;")
@@ -109,16 +105,13 @@ class Editor(QMainWindow):
                 file.write(self.text_edit.toPlainText())
 
     def Ejecutar(self):
-        instrucciones = g.parse(self.text_edit.toPlainText())
         ts = TablaSimbolos()
+        instrucciones = g.parse(self.text_edit.toPlainText())
+        self.consola_tab.clear()
+        self.errores_tab.clear()
         try:
             procesar_instrucciones(instrucciones, ts, save=True)
             procesar_instrucciones(instrucciones, ts)
-            errores.clear()
-            resultados.clear()
-            self.consola_tab.clear()
-            self.errores_tab.clear()
-            self.tabla_simbolos_tab.clear()
             self.tabla_simbolos_tab.append(ts.obtener_datos())
             self.consola_tab.append('\n'.join(resultados))
             self.errores_tab.append('\n'.join(errores))
@@ -128,7 +121,7 @@ class Editor(QMainWindow):
             print("Error: ", e)
             
     def Limpiar(self):
-        self.text_edit.clear()
+        self.consola_tab.clear()
 
     def mostrarReportes(self):
         QMessageBox.information(self, 'Mensaje', 'Reportes generados')

@@ -77,6 +77,7 @@ class ExpresionCadena:
 
 class ExpresionConsoleLog(ExpresionCadena):
     def __init__(self, val):
+        #print("val", val)
         self.val = val
 
 

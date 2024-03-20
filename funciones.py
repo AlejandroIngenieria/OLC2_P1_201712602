@@ -2,18 +2,33 @@ from simbolos import TablaSimbolos, Simbolos, TIPO_DATO
 from expresiones import *
 from instrucciones import *
 
+# ---------------------------------------------------------------------------- #
+#                                  CONSOLE.LOG                                 #
+# ---------------------------------------------------------------------------- #
+
 
 def procesar_imprimir(instr, ts):
+    print("Entro a imprimir")
     # print('>> ', resolver_expresion(instr.cad, ts))
     return resolver_expresion(instr.cad, ts)
+# ---------------------------------------------------------------------------- #
+#                                  DECLARACION                                 #
+# ---------------------------------------------------------------------------- #
+
 
 def procesar_declaracion(instr, ts):
     from interfaz import errores
     id = instr.id
     tipo = instr.tipo
     exp = resolver_expresion(instr.exp, ts)
+    #print("instruccion ID: "+id+" Tipo: " + tipo+" Exp: "+exp)
+
     if exp == "true" or exp == "false":
+        #print("exp es booleana")
         tipo = "boolean"
+        simbolo = Simbolos(id, tipo, exp)
+        ts.agregar(simbolo)
+        return
 
     if tipo == "null":
         tipo = type(exp).__name__
@@ -24,15 +39,20 @@ def procesar_declaracion(instr, ts):
             tipo = "number"
     else:
         valTipo = type(exp).__name__
+        if exp == "null" and tipo == "boolean":
+            simbolo.valor = "false"
+            ts.agregar(simbolo)
+            return
         if valTipo == "str":
             valTipo = "string"
         elif valTipo == "int":
             valTipo = "number"
-        if tipo != valTipo:
+        if tipo != valTipo and exp != "null":
             errores.append(
                 f"Error: no se puede asignar un {valTipo} a un {tipo}")
             return
-
+        
+    # print("Paso de tipos")
     sim = ts.obtener(id)
     if sim:
         if sim.cte == 1:
@@ -40,18 +60,44 @@ def procesar_declaracion(instr, ts):
             return
         if sim.tipo == tipo:
             simbolo = Simbolos(id, tipo, exp)
+            ts.agregar(simbolo)
+            return
         else:
             errores.append(
                 f"Error: no se puede asignar un {tipo} a un {sim.tipo}")
             return
     else:
         simbolo = Simbolos(id, tipo, exp)
+
+    # print("simbolo ID: "+simbolo.id+" Tipo: " +
+    #       simbolo.tipo+" Exp: "+str(simbolo.valor))
+    simbolo = Simbolos(id, tipo, exp)
     ts.agregar(simbolo)
+# ---------------------------------------------------------------------------- #
+#                                  ASIGNACION                                  #
+# ---------------------------------------------------------------------------- #
+
 
 def procesar_asignacion(instr, ts):
     id = instr.id
+    sim = ts.obtener(id)
+    if sim.cte == 1:
+        from interfaz import errores
+        errores.append("Error: no se puede asignar a una constante")
+        return
     exp = resolver_expresion(instr.exp, ts)
-    ts.actualizar(id, exp)
+    if instr.sim == "+":
+        sim.valor += exp
+        ts.actualizar(id, sim.valor)
+    elif instr.sim == "-":
+        sim.valor -= exp
+        ts.actualizar(id, sim.valor)
+    elif instr.sim == "=":
+        ts.actualizar(id, exp)
+# ---------------------------------------------------------------------------- #
+#                                   CONSTANTE                                  #
+# ---------------------------------------------------------------------------- #
+
 
 def procesar_constante(instr, ts):
     from interfaz import errores
@@ -88,11 +134,36 @@ def procesar_constante(instr, ts):
         simbolo.cte = 1
     ts.agregar(simbolo)
 
+# ---------------------------------------------------------------------------- #
+#                                   TERNARIO                                   #
+# ---------------------------------------------------------------------------- #
+
+
+# def procesar_ternario(instr, ts):
+#     expLog = resolver_expresion_logica(instr.expLogica, ts)
+#     if expLog:
+#         print("Ternario verdadero")
+#         return resolver_expresion(instr.valTrue)
+#     else:
+#         print("Ternario falso")
+#         return resolver_expresion(instr.valFalse)
+
+# ---------------------------------------------------------------------------- #
+#                                      IF                                      #
+# ---------------------------------------------------------------------------- #
+
+
 def procesar_if(instr, ts):
+    print("Entro a procesar if")
     expLog = resolver_expresion_logica(instr.expLogica, ts)
+    print("expLog", expLog)
     if expLog:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
         return procesar_instrucciones(instr.instrucciones, TablaLocal)
+# ---------------------------------------------------------------------------- #
+#                                    IF ELSE                                   #
+# ---------------------------------------------------------------------------- #
+
 
 def procesar_if_else(instr, ts):
     expLog = resolver_expresion_logica(instr.expLogica, ts)
@@ -103,12 +174,18 @@ def procesar_if_else(instr, ts):
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
         return procesar_instrucciones(instr.instrIfFalso, TablaLocal)
 
+
+# ---------------------------------------------------------------------------- #
+#                            OPERACIONES ARITMETICAS                           #
+# ---------------------------------------------------------------------------- #
+
+
 def resolver_expresion_aritmetica(expNum, ts):
     if isinstance(expNum, ExpresionBinaria):
         exp1 = resolver_expresion_aritmetica(expNum.exp1, ts)
         exp2 = resolver_expresion_aritmetica(expNum.exp2, ts)
-        print("exp1: ", exp1)
-        print("exp2: ", exp2)
+        # print("exp1: ", exp1)
+        # print("exp2: ", exp2)
 
         if expNum.operador == OPERACION_ARITMETICA.MAS:
             return exp1 + exp2
@@ -139,6 +216,10 @@ def resolver_expresion_aritmetica(expNum, ts):
             return exp_id.props[expNum.prop]
 
         return None
+# ---------------------------------------------------------------------------- #
+#                              OPERACIONES LOGICAS                             #
+# ---------------------------------------------------------------------------- #
+
 
 def resolver_expresion_logica(expLog, ts):
     exp1 = resolver_expresion_aritmetica(expLog.exp1, ts)
@@ -158,9 +239,9 @@ def resolver_expresion_logica(expLog, ts):
     if expLog.operador == OPERACION_LOGICA.AND:
         return exp1 == exp2
     if expLog.operador == OPERACION_LOGICA.OR:
-        if exp1=="true":
+        if exp1 == "true":
             return exp1 == "true"
-        if exp2=="true":
+        if exp2 == "true":
             return exp2 == "true"
         return 1 > 3
     if expLog.operador == OPERACION_LOGICA.NOT:
@@ -168,7 +249,11 @@ def resolver_expresion_logica(expLog, ts):
             return False
         else:
             return True
-    
+# ---------------------------------------------------------------------------- #
+#                                   FUNCIONES                                  #
+# ---------------------------------------------------------------------------- #
+
+
 def procesar_funcion(instr, ts):
     fun_ = ts.obtener(instr.id).instrucciones
     params_ = ts.obtener(instr.id).parametros
@@ -183,12 +268,17 @@ def procesar_funcion(instr, ts):
             # return resolver(exp)
             pass
 
+
 def guardar_funcion(instr, ts):
     funcion_id = instr.id
 
     simbolo = Simbolos(funcion_id, TIPO_DATO.FUNCION,
                        instr.parametros, instr.instrucciones, instr.parametros)
     ts.agregar(simbolo)
+# ---------------------------------------------------------------------------- #
+#                                   INTERFACE                                  #
+# ---------------------------------------------------------------------------- #
+
 
 def guardar_interface(instr, ts):
     interface_id = instr.id
@@ -204,8 +294,13 @@ def guardar_interface(instr, ts):
                        valor=None, props=instr.props)
     ts.agregar(simbolo)
 
+# ? ---------------------------------------------------------------------------- #
+# ?                         ADMINISTRACION DE EXPRESIONES                        #
+# ? ---------------------------------------------------------------------------- #
+
 
 def resolver_expresion(expCad, ts):
+    print("expCad: ", expCad)
     if isinstance(expCad, ExpresionBinaria):
         exp = resolver_expresion_aritmetica(expCad, ts)
         return exp
@@ -251,10 +346,10 @@ def procesar_instrucciones(instrucciones, ts, save=False):
             elif isinstance(instr, Constante):
                 procesar_constante(instr, ts)
             elif isinstance(instr, If):
-                resultados.append(procesar_if(instr, ts))
+                procesar_if(instr, ts)
                 # return procesar_if(instr, ts)
             elif isinstance(instr, IfElse):
-                resultados.append(procesar_if_else(instr, ts))
+                procesar_if_else(instr, ts)
                 # return procesar_if_else(instr, ts)
             elif isinstance(instr, CallFunction):
                 procesar_funcion(instr, ts)
