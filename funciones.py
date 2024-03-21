@@ -8,8 +8,6 @@ from instrucciones import *
 
 
 def procesar_imprimir(instr, ts):
-    print("Entro a imprimir")
-    # print('>> ', resolver_expresion(instr.cad, ts))
     return resolver_expresion(instr.cad, ts)
 # ---------------------------------------------------------------------------- #
 #                                  DECLARACION                                 #
@@ -21,57 +19,50 @@ def procesar_declaracion(instr, ts):
     id = instr.id
     tipo = instr.tipo
     exp = resolver_expresion(instr.exp, ts)
-    # print("instruccion ID: "+id+" Tipo: " + tipo+" Exp: "+exp)
+    # print("Declaracion ID: "+id+" Tipo: " + tipo+" Exp: "+str(exp))
 
+    simbolo = Simbolos(id, tipo, exp)
     if exp == "true" or exp == "false":
         # print("exp es booleana")
         tipo = "boolean"
-        simbolo = Simbolos(id, tipo, exp)
-        ts.agregar(simbolo)
-        return
+        simbolo.tipo = tipo
+        exp = True
+
+    if exp == "null" and tipo == "boolean":
+        simbolo.valor = "false"
 
     if tipo == "null":
         tipo = type(exp).__name__
-        print("tipo: ", tipo)
+        simbolo.tipo = tipo
         if tipo == "str":
             tipo = "string"
+            simbolo.tipo = tipo
         elif tipo == "int":
             tipo = "number"
+            simbolo.tipo = tipo
     else:
         valTipo = type(exp).__name__
-        if exp == "null" and tipo == "boolean":
-            simbolo.valor = "false"
-            ts.agregar(simbolo)
-            return
         if valTipo == "str":
             valTipo = "string"
         elif valTipo == "int":
             valTipo = "number"
+        elif valTipo == "bool":
+            valTipo = "boolean"
         if tipo != valTipo and exp != "null":
             errores.append(
                 f"Error: no se puede asignar un {valTipo} a un {tipo}")
             return
 
-    # print("Paso de tipos")
     sim = ts.obtener(id)
     if sim:
+        print("entro a sim")
         if sim.cte == 1:
             errores.append("Error: no se puede cambiar una constante")
             return
-        if sim.tipo == tipo:
-            simbolo = Simbolos(id, tipo, exp)
-            ts.agregar(simbolo)
-            return
-        else:
+        if sim.tipo != tipo:
             errores.append(
                 f"Error: no se puede asignar un {tipo} a un {sim.tipo}")
             return
-    else:
-        simbolo = Simbolos(id, tipo, exp)
-
-    # print("simbolo ID: "+simbolo.id+" Tipo: " +
-    #       simbolo.tipo+" Exp: "+str(simbolo.valor))
-    simbolo = Simbolos(id, tipo, exp)
     ts.agregar(simbolo)
 # ---------------------------------------------------------------------------- #
 #                                  ASIGNACION                                  #
@@ -156,9 +147,7 @@ def procesar_constante(instr, ts):
 
 
 def procesar_if(instr, ts):
-    print("Entro a procesar if")
     expLog = resolver_expresion_logica(instr.expLogica, ts)
-    print("expLog", expLog)
     if expLog:
         TablaLocal = TablaSimbolos(ts.simbolos.copy())
         procesar_instrucciones(instr.instrucciones, TablaLocal)
@@ -245,7 +234,7 @@ def resolver_expresion_logica(expLog, ts):
             return exp1 == "true"
         if exp2 == "true":
             return exp2 == "true"
-        return 1 > 3
+        return False
     if expLog.operador == OPERACION_LOGICA.NOT:
         if exp1 == "true":
             return False
@@ -337,7 +326,7 @@ def guardar_interface(instr, ts):
 
 
 def resolver_expresion(expCad, ts):
-    print("expCad: ", expCad)
+    # print("expCad: ", expCad)
     if isinstance(expCad, ExpresionBinaria):
         exp = resolver_expresion_aritmetica(expCad, ts)
         return exp
@@ -366,7 +355,7 @@ def resolver_expresion(expCad, ts):
     elif isinstance(expCad, ExpresionNegativo):
         return -expCad.val.val
     else:
-        print('Error: Expresión cadena no válida')
+        print('Error: No se logro resolver la expresion')
 
 
 def procesar_instrucciones(instrucciones, ts, save=False):
@@ -397,7 +386,6 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 pass
             else:
                 print('Error: instrucción no válida')
-                errores.append('Error: instrucción no válida')
         else:
             '''OTRA VERIFICACION PARA LA CLASE FUNCION'''
             '''
@@ -413,4 +401,3 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 guardar_interface(instr, ts)
             else:
                 print('Error: No se logro leer la instruccion')
-                errores.append('Error: No se logro leer la instruccion')

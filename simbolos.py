@@ -33,17 +33,13 @@ class TablaSimbolos():
 
     def obtener(self, id):
         if not id in self.simbolos:
-            from interfaz import errores
-            err = 'Error: variable no definida'
-            errores.append(err)
+            print('Error: variable no definida')
         else:
             return self.simbolos[id]
 
     def actualizar(self, id, valor):
         if not id in self.simbolos:
-            from interfaz import errores
-            err = 'Nota: nueva variable definida'
-            errores.append(err)
+            print('Nueva variable definida')
         else:
             self.simbolos[id].valor = valor
 

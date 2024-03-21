@@ -114,30 +114,45 @@ class Editor(QMainWindow):
             self.errores_tab.append('\n'.join(errores))
 
         except Exception as e:
-            errores.append("Error: ", e)
             print("Error: ", e)
 
     def mostrarReportes(self):
         # Definir el primer código DOT
+        
         dot_code_1 = '''
-        digraph G1 {
-            title [label="Reporte de errores" shape=plaintext fontname="Helvetica,Arial,sans-serif"];
-            A -> B;
-            A -> C;
-            B -> D;
-            C -> D;
-        }
+        digraph G {
+            node [shape=plaintext]
+            title [label="Errores" shape=plaintext fontname="Helvetica,Arial,sans-serif"];
+            tbl [
+                label=<<table border="0" cellborder="1" cellspacing="0">
+                    <tr><td bgcolor="#ADD8E6">ID</td><td bgcolor="#ADD8E6">Valor</td><td bgcolor="#ADD8E6">Tipo</td></tr>
+                    <tr><td>bl</td><td>true</td><td>boolean</td></tr>
+                    <tr><td>kk</td><td>h</td><td>string</td></tr>
+                    <tr><td>kyc</td><td>false</td><td>boolean</td></tr>
+                    <tr><td>m</td><td>2.33</td><td>float</td></tr>
+                    <tr><td>skadush</td><td>20</td><td>number</td></tr>
+                </table>>
+            ];
+        title -> tbl[style=invis]
+}
         '''
 
         # Definir el segundo código DOT
         dot_code_2 = '''
-        digraph G2 {
-            title [label="Reporte de tabla de simbolos" shape=plaintext fontname="Helvetica,Arial,sans-serif"];
-            X -> Y;
-            X -> Z;
-            Y -> W;
-            Z -> W;
-        }
+        digraph G {
+            node [shape=plaintext]
+            title [label="Tabla de simbolos" shape=plaintext fontname="Helvetica,Arial,sans-serif"];
+            tbl [
+                label=<<table border="0" cellborder="1" cellspacing="0">
+                    <tr><td bgcolor="#ADD8E6">ID</td><td bgcolor="#ADD8E6">Valor</td><td bgcolor="#ADD8E6">Tipo</td></tr>
+                    <tr><td>bl</td><td>true</td><td>boolean</td></tr>
+                    <tr><td>kk</td><td>h</td><td>string</td></tr>
+                    <tr><td>kyc</td><td>false</td><td>boolean</td></tr>
+                    <tr><td>m</td><td>2.33</td><td>float</td></tr>
+                    <tr><td>skadush</td><td>20</td><td>number</td></tr>
+                </table>>
+            ];
+        title -> tbl[style=invis]
         '''
 
         # Escribir el primer código DOT en un archivo temporal

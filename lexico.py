@@ -207,7 +207,7 @@ def t_newline(t):
 
 def t_error(t):
     from interfaz import errores
-    err = "Error Léxico: '%s'" % t.value[0]
+    err = f"Error Léxico: {t.value[0]} en la Linea: {t.lineno} Columa: {t.lexpos}"
     errores.append(err)
     t.lexer.skip(1)
 
