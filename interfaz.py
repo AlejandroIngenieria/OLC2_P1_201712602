@@ -109,6 +109,7 @@ class Editor(QMainWindow):
         instrucciones = g.parse(self.text_edit.toPlainText())
         self.consola_tab.clear()
         self.errores_tab.clear()
+        self.tabla_simbolos_tab.clear()
         try:
             procesar_instrucciones(instrucciones, ts, save=True)
             procesar_instrucciones(instrucciones, ts)

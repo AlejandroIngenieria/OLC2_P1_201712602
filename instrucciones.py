@@ -13,7 +13,7 @@ class Declaracion(Instruccion):
         self.id = id
         self.tipo = tipo
         self.exp = exp
-        #print("declaracion ID: ", self.id, " Valor: ", self.exp, " Tipo: ",self.tipo)
+        # print("declaracion ID: ", self.id, " Valor: ", self.exp, " Tipo: ",self.tipo)
 
 
 class Constante(Instruccion):
@@ -21,7 +21,8 @@ class Constante(Instruccion):
         self.id = id
         self.exp = exp
         self.tipo = tipo
-        print("Constante ID: ", self.id, " Valor: ",self.exp, " Tipo: ", self.tipo)
+        print("Constante ID: ", self.id, " Valor: ",
+              self.exp, " Tipo: ", self.tipo)
 
 
 class Asignacion(Instruccion):
@@ -30,6 +31,7 @@ class Asignacion(Instruccion):
         self.exp = exp
         self.sim = sim
         print("id: ", self.id, " exp: "+str(self.exp.val)+" sim: "+self.sim)
+
 
 class Ternario(Instruccion):
     def __init__(self, expLogica, valTrue, valFalse):
@@ -40,6 +42,7 @@ class Ternario(Instruccion):
         self.expLogica = expLogica
         self.valT = valTrue
         self.valF = valFalse
+
 
 class If(Instruccion):
     def __init__(self, expLogica, instrucciones=[]):
@@ -58,6 +61,19 @@ class While(Instruccion):
     def __init__(self, expLogica, instruccciones=[]):
         self.expLogica = expLogica
         self.instrucciones = instruccciones
+
+
+class For(Instruccion):
+    def __init__(self, idD, tipoD, expD, expLogica, id, incremento, instrucciones=[] ):
+        print("entendio la instruccion")
+        self.idD = idD
+        self.tipoD = tipoD
+        self.expD = expD
+        self.expLogica = expLogica
+        self.id = id
+        self.incremento = incremento
+        self.instrucciones = instrucciones
+        
 
 class Function(Instruccion):
     def __init__(self, id, ret_, parametros=[], instrucciones=[]):

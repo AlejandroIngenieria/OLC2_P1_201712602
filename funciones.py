@@ -262,15 +262,28 @@ def procesar_while(instr, ts):
     while logica:
         procesar_instrucciones(instr.instrucciones, ts)
         logica = resolver_expresion_logica(instr.expLogica, ts)
-        print("logica: ", logica)
 
 
 # ---------------------------------------------------------------------------- #
-#                                      FOR                                     #
+#                                  FOR NORMAL                                  #
 # ---------------------------------------------------------------------------- #
 
 
 def procesar_for(instr, ts):
+    print("FOR PROCESS")
+    print("declaracion ID: ", instr.idD,
+          " TIPO: "+instr.tipoD+" EXP: "+instr.expD)
+    print("Expresion logica: ", resolver_expresion_logica(instr.expLogica))
+    print("ID: ", instr.id)
+    print("SIMBOLO", instr.simbolo)
+    print("INSTRUCCIONES\n", instr.instrucciones)
+
+# ---------------------------------------------------------------------------- #
+#                                   FOR ARRAY                                  #
+# ---------------------------------------------------------------------------- #
+
+
+def procesar_for_array(instr, ts):
     return
 
 # ---------------------------------------------------------------------------- #
@@ -362,7 +375,6 @@ def procesar_instrucciones(instrucciones, ts, save=False):
         if not save:
             if isinstance(instr, Imprimir):
                 resultados.append(procesar_imprimir(instr, ts))
-                # return procesar_imprimir(instr, ts)
             elif isinstance(instr, Declaracion):
                 procesar_declaracion(instr, ts)
             elif isinstance(instr, Asignacion):
@@ -371,12 +383,12 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 procesar_constante(instr, ts)
             elif isinstance(instr, If):
                 procesar_if(instr, ts)
-                # return procesar_if(instr, ts)
             elif isinstance(instr, IfElse):
                 procesar_if_else(instr, ts)
             elif isinstance(instr, While):
                 procesar_while(instr, ts)
-                # return procesar_if_else(instr, ts)
+            elif isinstance(instr, For):
+                procesar_for(instr, ts)
             elif isinstance(instr, CallFunction):
                 procesar_funcion(instr, ts)
             elif isinstance(instr, Function):
@@ -386,7 +398,6 @@ def procesar_instrucciones(instrucciones, ts, save=False):
             else:
                 print('Error: instrucción no válida')
                 errores.append('Error: instrucción no válida')
-                return 'Error: instrucción no válida'
         else:
             '''OTRA VERIFICACION PARA LA CLASE FUNCION'''
             '''
@@ -400,3 +411,6 @@ def procesar_instrucciones(instrucciones, ts, save=False):
                 guardar_funcion(instr, ts)
             elif isinstance(instr, ExpresionInterface):
                 guardar_interface(instr, ts)
+            else:
+                print('Error: No se logro leer la instruccion')
+                errores.append('Error: No se logro leer la instruccion')

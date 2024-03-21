@@ -39,7 +39,9 @@ tokens = [
     'CORIZQ',
     'CORDER',
     'MAS',
+    'DOSMAS',
     'MENOS',
+    'DOSMENOS',
     'POR',
     'DIVIDIDO',
     'MODULO',
@@ -91,7 +93,9 @@ t_PARDER = r'\)'
 t_CORIZQ = r'\['
 t_CORDER = r'\]'
 t_MAS = r'\+'
+t_DOSMAS = r'\+\+'
 t_MENOS = r'-'
+t_DOSMENOS = r'--'
 t_POR = r'\*'
 t_DIVIDIDO = r'/'
 t_MODULO = r'%'
@@ -218,5 +222,5 @@ precedence = (
     ('left', 'OR'),  # ||
     ('left', 'MAS', 'MENOS'),  # + -
     ('left', 'POR', 'DIVIDIDO', 'MODULO'),  # * / %
-    ('right', 'MENOS', 'NOT')  # - !
+    ('right', 'NOT')  # - !
 )
