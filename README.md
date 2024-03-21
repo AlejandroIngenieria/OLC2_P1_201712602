@@ -14,6 +14,7 @@
     - [Reportes](#Reportes)
     - [Ejecutar](#Ejecutar)
 - [Manual técnico](#Manual-técnico)
+    - [Lexemas](#Lexemas)
     - [Gramatica](#Gramatica)
     - [Análisis](#Análisis)
     - [Diagrama sintáctico](#Diagrama-sintáctico)
@@ -45,7 +46,7 @@ Este boton genera en formato pdf los valores obtenidos en la tabla de simbolos y
 ## Ejecutar
 Este boton mandara a analizar el codigo escrito en el editor de codigo.
 
-# Manual técnico
+# Manual tecnico
 
 Para la realización de este proyecto se utilizó el lenguaje de programación Python, el cual nos permite realizar el análisis léxico, sintáctico y semántico del lenguaje OLCScript. Para la realización de la interfaz gráfica se utilizó el uso de la libreria PyQt5.QtWidgets.
 
