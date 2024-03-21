@@ -2,12 +2,15 @@ from PyQt5.QtWidgets import QMainWindow, QTextEdit, QPushButton, QTabWidget, QTe
 from simbolos import TablaSimbolos
 from funciones import *
 import gramatica as g
+import subprocess
 
 # ---------------------------------------------------------------------------- #
 #                              VARIABLES GLOBALES                              #
 # ---------------------------------------------------------------------------- #
 errores = []
 resultados = []
+ts = TablaSimbolos()
+
 
 class Editor(QMainWindow):
     def __init__(self):
@@ -43,17 +46,11 @@ class Editor(QMainWindow):
             "background-color: #42855B; color: #ffffff;")
         ejecutar_btn.clicked.connect(self.Ejecutar)
 
-        reportes_btn = QPushButton('Mostrar Reportes', self)
+        reportes_btn = QPushButton('Generar Reportes', self)
         reportes_btn.setGeometry(120, 440, 150, 30)
         reportes_btn.setStyleSheet(
             "background-color: #22092C; color: #ffffff;")
         reportes_btn.clicked.connect(self.mostrarReportes)
-        
-        limpiar_btn = QPushButton('Limpiar consola', self)
-        limpiar_btn.setGeometry(280, 440, 100, 30)
-        limpiar_btn.setStyleSheet(
-            "background-color: #496989; color: #ffffff;")
-        limpiar_btn.clicked.connect(self.Limpiar)
 
         # Recuadro de pestañas (Consola, Tabla de símbolos, Errores)
         tab_widget = QTabWidget(self)
@@ -105,7 +102,6 @@ class Editor(QMainWindow):
                 file.write(self.text_edit.toPlainText())
 
     def Ejecutar(self):
-        ts = TablaSimbolos()
         instrucciones = g.parse(self.text_edit.toPlainText())
         self.consola_tab.clear()
         self.errores_tab.clear()
@@ -116,13 +112,52 @@ class Editor(QMainWindow):
             self.tabla_simbolos_tab.append(ts.obtener_datos())
             self.consola_tab.append('\n'.join(resultados))
             self.errores_tab.append('\n'.join(errores))
-            
+
         except Exception as e:
             errores.append("Error: ", e)
             print("Error: ", e)
-            
-    def Limpiar(self):
-        self.consola_tab.clear()
 
     def mostrarReportes(self):
+        # Definir el primer código DOT
+        dot_code_1 = '''
+        digraph G1 {
+            title [label="Reporte de errores" shape=plaintext fontname="Helvetica,Arial,sans-serif"];
+            A -> B;
+            A -> C;
+            B -> D;
+            C -> D;
+        }
+        '''
+
+        # Definir el segundo código DOT
+        dot_code_2 = '''
+        digraph G2 {
+            title [label="Reporte de tabla de simbolos" shape=plaintext fontname="Helvetica,Arial,sans-serif"];
+            X -> Y;
+            X -> Z;
+            Y -> W;
+            Z -> W;
+        }
+        '''
+
+        # Escribir el primer código DOT en un archivo temporal
+        with open('temp1.dot', 'w') as f:
+            f.write(dot_code_1)
+
+        # Generar la primera imagen utilizando el comando dot de Graphviz
+        subprocess.run(['dot', '-Tpng', 'temp1.dot', '-o', 'ErroresRep.png'])
+
+        # Eliminar el archivo temporal del primer código DOT
+        subprocess.run(['rm', 'temp1.dot'])
+
+        # Escribir el segundo código DOT en un archivo temporal
+        with open('temp2.dot', 'w') as f:
+            f.write(dot_code_2)
+
+        # Generar la segunda imagen utilizando el comando dot de Graphviz
+        subprocess.run(['dot', '-Tpng', 'temp2.dot', '-o', 'SimbolosRep.png'])
+
+        # Eliminar el archivo temporal del segundo código DOT
+        subprocess.run(['rm', 'temp2.dot'])
+
         QMessageBox.information(self, 'Mensaje', 'Reportes generados')
